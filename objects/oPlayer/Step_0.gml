@@ -1,12 +1,26 @@
-var _h = keyboard_check(ord("D")) - keyboard_check(ord("A"));
-var _v = keyboard_check(ord("S")) - keyboard_check(ord("W"));
+// Player movement
+var hMove = keyboard_check(ord("D")) - keyboard_check(ord("A"));
+var vMove = keyboard_check(ord("S")) - keyboard_check(ord("W"));
 
-var _len = point_distance(0,0,_h,_v);
-if (_len > 0){
-    _h /= _len;
-    _v /= _len;
+var moveLen = point_distance(0,0,hMove,vMove);
+if (moveLen > 0){
+    hMove /= moveLen;
+    vMove /= moveLen;
 }
 
 
-x += _h * playerSpeed;
-y += _v * playerSpeed;
+x += hMove * playerSpeed * oGlobal.dt;
+y += vMove * playerSpeed * oGlobal.dt;
+
+
+// Campice
+var distToIce = point_distance(x, y, oCampice.x, oCampice.y);
+
+if (distToIce < coolRadius) {
+    cold += coldRegen * oGlobal.dt;
+}
+else{
+    cold -= coldDrain * oGlobal.dt;
+}
+
+cold = clamp(cold, 0, coldMax);

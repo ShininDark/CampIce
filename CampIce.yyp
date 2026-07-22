@@ -25,8 +25,11 @@
   },
   "name":"CampIce",
   "resources":[
+    {"id":{"name":"oCampice","path":"objects/oCampice/oCampice.yy",},},
+    {"id":{"name":"oGlobal","path":"objects/oGlobal/oGlobal.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"rGame","path":"rooms/rGame/rGame.yy",},},
+    {"id":{"name":"sCampice","path":"sprites/sCampice/sCampice.yy",},},
     {"id":{"name":"sPlayer","path":"sprites/sPlayer/sPlayer.yy",},},
   ],
   "resourceType":"GMProject",
