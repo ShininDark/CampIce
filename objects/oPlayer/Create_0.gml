@@ -1,1 +1,1 @@
-playerSpeed = 10;
+playerSpeed = 5;
