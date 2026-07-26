@@ -56,6 +56,27 @@ if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMin
             mineTimer = 0;
             
             if (nearestMineral.mineralHealth <= 0){
+                var found = false;
+                
+                for (var i = 0; i < array_length(oGlobal.inventory); i++) {
+                    if (oGlobal.inventory[i].mineralType == nearestMineral.mineralType) {
+                        oGlobal.inventory[i].count += 1;
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    array_push(oGlobal.inventory, {
+                        mineralType: nearestMineral.mineralType,
+                        sprite: nearestMineral.sprite_index,
+                        sellValue: nearestMineral.sellValue,
+                        count: 1
+                    });
+                }
+                
+                instance_destroy(nearestMineral);
+                show_debug_message("Inventory size: " + string(array_length(oGlobal.inventory)));
                 instance_destroy(nearestMineral);
             }
         }

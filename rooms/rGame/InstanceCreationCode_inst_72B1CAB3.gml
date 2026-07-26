@@ -1,0 +1,2 @@
+mineralType = "iron";
+setupMineral();

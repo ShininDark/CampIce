@@ -1,0 +1,2 @@
+mineralType = "coal";
+setupMineral();

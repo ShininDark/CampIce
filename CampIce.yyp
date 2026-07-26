@@ -27,6 +27,7 @@
   "resources":[
     {"id":{"name":"oCampice","path":"objects/oCampice/oCampice.yy",},},
     {"id":{"name":"oGlobal","path":"objects/oGlobal/oGlobal.yy",},},
+    {"id":{"name":"oHud","path":"objects/oHud/oHud.yy",},},
     {"id":{"name":"oMineral","path":"objects/oMineral/oMineral.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"rGame","path":"rooms/rGame/rGame.yy",},},
