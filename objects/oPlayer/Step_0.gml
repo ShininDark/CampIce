@@ -12,18 +12,18 @@ hsp = hMove * playerSpeed * oGlobal.dt;
 vsp = vMove * playerSpeed * oGlobal.dt;
 
 // Horizontal movement + collision 
-var new_x = x + hsp; 
-if (!tileCollision(new_x, y)) { 
-    x = new_x;
+var newX = x + hsp; 
+if (!tileCollision(newX, y)) { 
+    x = newX;
 } 
 else {
     hsp = 0; // stop horizontal glide if blocked
 }
     
 // Vertical movement + collision
-var new_y = y + vsp;
-if (!tileCollision(x, new_y)) {
-    y = new_y;
+var newY = y + vsp;
+if (!tileCollision(x, newY)) {
+    y = newY;
 } 
 else {
     vsp = 0; // stop vertical glide if blocked
@@ -42,6 +42,27 @@ else{
 cold = clamp(cold, 0, coldMax);
 
 
-// for collision on boundaries
 
+// mining ores
+nearestMineral = instance_nearest(x, y, oMineral);
+
+if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMineral.y) < 32){
+    if (mouse_check_button(mb_left)){
+        mineTimer += oGlobal.dt;
+        
+        if (mineTimer >= mineInterval) {
+            nearestMineral.mineralHealth --;
+            show_debug_message("Mineral Health = " + string(nearestMineral.mineralHealth));
+            mineTimer = 0;
+            
+            if (nearestMineral.mineralHealth <= 0){
+                instance_destroy(nearestMineral);
+            }
+        }
+        
+    }
+    else {
+        mineTimer = 0;  // this will make the timer start again if player releases before finishing.
+    }
+}
 

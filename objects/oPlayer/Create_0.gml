@@ -8,4 +8,8 @@ coldRegen = 10;
 coldDrain = 2;
 coolRadius = 200;       // for the distance within which the player is near the campice to start regening cold
 
+// mining
+mineTimer = 0;
+mineInterval = 1;   // this will act as seconds between hits
+
 collisionTiles = layer_tilemap_get_id("tile_collide");
