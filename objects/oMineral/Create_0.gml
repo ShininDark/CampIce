@@ -17,7 +17,7 @@ function setupMineral(){
         case "gold":
             sprite_index = sMineralGold;
             sellValue = 30;
-            mineralHealth = 2;
+            mineralHealth = 2 ;
             break;
     }
 }
