@@ -26,6 +26,7 @@
   "name":"CampIce",
   "resources":[
     {"id":{"name":"oCampice","path":"objects/oCampice/oCampice.yy",},},
+    {"id":{"name":"oColdLamp","path":"objects/oColdLamp/oColdLamp.yy",},},
     {"id":{"name":"oGlobal","path":"objects/oGlobal/oGlobal.yy",},},
     {"id":{"name":"oHud","path":"objects/oHud/oHud.yy",},},
     {"id":{"name":"oInventory","path":"objects/oInventory/oInventory.yy",},},
@@ -46,6 +47,7 @@
     {"id":{"name":"sBirchTree","path":"sprites/sBirchTree/sBirchTree.yy",},},
     {"id":{"name":"sCampice","path":"sprites/sCampice/sCampice.yy",},},
     {"id":{"name":"sCol","path":"sprites/sCol/sCol.yy",},},
+    {"id":{"name":"sColdLamp","path":"sprites/sColdLamp/sColdLamp.yy",},},
     {"id":{"name":"sInvSlot","path":"sprites/sInvSlot/sInvSlot.yy",},},
     {"id":{"name":"sMapleDrop","path":"sprites/sMapleDrop/sMapleDrop.yy",},},
     {"id":{"name":"sMapleTree","path":"sprites/sMapleTree/sMapleTree.yy",},},
