@@ -7,3 +7,8 @@ cooldownTimer = 0;
 cooldownDuration = 60; // seconds — 1 minute
 coldAmount = 25;
 interactRadius = 32;
+
+// hold-to-interact
+holdTimer = 0;
+holdDuration = 1.0;   // seconds to hold E
+isHolding = false;
