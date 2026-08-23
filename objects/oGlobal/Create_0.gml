@@ -1,0 +1,1 @@
+dt = 1; // safe default, immediately overwritten by Step each frame

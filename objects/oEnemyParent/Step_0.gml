@@ -15,7 +15,7 @@ if (distToPlayer <= chaseRadius && distToPlayer > stopDistance) {
 var sepX = 0, sepY = 0;
 var sepRadius = 32; // roughly mob width, tweak to taste
 
-with (oMobParent) {
+with (oEnemyParent) {
     if (id != other.id) {
         var d = point_distance(other.x, other.y, x, y);
         if (d < sepRadius && d > 0) {
