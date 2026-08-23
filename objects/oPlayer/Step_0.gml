@@ -45,45 +45,75 @@ cold = clamp(cold, 0, coldMax);
 
 // mining ores
 nearestMineral = instance_nearest(x, y, oMineral);
+if (prevMiningTarget != noone && instance_exists(prevMiningTarget) && prevMiningTarget != nearestMineral) {
+    prevMiningTarget.isMining = false;
+}
 
 if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMineral.y) < 32){
     if (mouse_check_button(mb_left)){
+        nearestMineral.isMining = true;
         mineTimer += oGlobal.dt;
         
         if (mineTimer >= mineInterval) {
-            nearestMineral.mineralHealth --;
+            nearestMineral.mineralHealth--;
             show_debug_message("Mineral Health = " + string(nearestMineral.mineralHealth));
             mineTimer = 0;
             
-            if (nearestMineral.mineralHealth <= 0){
-                var found = false;
+            if (nearestMineral.mineralHealth <= 0) {
+                var minedType = nearestMineral.mineralType;
+                var itemDef = getItemDef(minedType);
                 
-                for (var i = 0; i < array_length(oGlobal.inventory); i++) {
-                    if (oGlobal.inventory[i].mineralType == nearestMineral.mineralType) {
-                        oGlobal.inventory[i].count += 1;
-                        found = true;
-                        break;
-                    }
-                }
-                
-                if (!found) {
-                    array_push(oGlobal.inventory, {
-                        mineralType: nearestMineral.mineralType,
-                        sprite: nearestMineral.sprite_index,
-                        sellValue: nearestMineral.sellValue,
-                        count: 1
-                    });
+                if (itemDef != noone) {
+                    spawnDrop(itemDef, 1, nearestMineral.x, nearestMineral.y);
                 }
                 
                 instance_destroy(nearestMineral);
-                show_debug_message("Inventory size: " + string(array_length(oGlobal.inventory)));
-                instance_destroy(nearestMineral);
+                show_debug_message("Mined: " + string(minedType));
             }
         }
-        
     }
     else {
-        mineTimer = 0;  // this will make the timer start again if player releases before finishing.
+        nearestMineral.isMining = false;
+        mineTimer = 0;
     }
 }
+
+prevMiningTarget = nearestMineral;
+
+// chopping trees
+nearestTree = instance_nearest(x, y, oTree);
+if (prevChopTarget != noone && instance_exists(prevChopTarget) && prevChopTarget != nearestTree) {
+    prevChopTarget.isMining = false;
+}
+
+if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) < 32){
+    if (mouse_check_button(mb_left)){
+        nearestTree.isMining = true;
+        chopTimer += oGlobal.dt;
+        
+        if (chopTimer >= chopInterval) {
+            nearestTree.treeHealth--;
+            show_debug_message("Tree Health = " + string(nearestTree.treeHealth));
+            chopTimer = 0;
+            
+            if (nearestTree.treeHealth <= 0) {
+                var choppedType = nearestTree.treeType;
+                var itemDef = getItemDef(choppedType);
+                
+                if (itemDef != noone) {
+                    spawnDrop(itemDef, 1, nearestTree.x, nearestTree.y);
+                }
+                
+                instance_destroy(nearestTree);
+                show_debug_message("Chopped: " + string(choppedType));
+            }
+        }
+    }
+    else {
+        nearestTree.isMining = false;
+        chopTimer = 0;
+    }
+}
+
+prevChopTarget = nearestTree;
 

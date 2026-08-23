@@ -1,2 +1,0 @@
-mineralType = "gold";
-setupMineral();

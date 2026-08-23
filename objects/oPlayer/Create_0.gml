@@ -11,5 +11,12 @@ coolRadius = 200;       // for the distance within which the player is near the 
 // mining
 mineTimer = 0;
 mineInterval = 1;   // this will act as seconds between hits
+prevMiningTarget = noone;
 
-collisionTiles = layer_tilemap_get_id("tile_collide");
+// chopping
+chopTimer = 0;
+chopInterval = 1;
+prevChopTarget = noone;
+
+
+collTilemap = layer_tilemap_get_id("tile_collide");

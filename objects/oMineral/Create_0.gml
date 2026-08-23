@@ -2,22 +2,25 @@ mineralType = "coal";   // default creation value to prevent crash, overridden b
 mineralHealth = 10;     // default value
 sellValue = 5;          // default value
 
+mineralHealthMax = mineralHealth; 
+isMining = false;
+
 function setupMineral(){
     switch (mineralType){
         case "coal":
             sprite_index = sMineralCoal;
             sellValue = 5;
-            mineralHealth = 1;
+            mineralHealth = 3;
             break;
         case "iron":
             sprite_index = sMineralIron;
             sellValue = 12;
-            mineralHealth = 1;
+            mineralHealth = 5;
             break;
         case "gold":
             sprite_index = sMineralGold;
             sellValue = 30;
-            mineralHealth = 2 ;
+            mineralHealth = 7;
             break;
     }
 }

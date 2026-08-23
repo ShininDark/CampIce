@@ -1,23 +1,15 @@
-// Draw GUI Event, oHud
-var slotSize = 48;
-var slotGap = 4;
-var startX = 20;
-var startY = 100;
-
-for (var i = 0; i < array_length(oGlobal.inventory); i++) {
-    var item = oGlobal.inventory[i];
-    var slotX = startX + (i * (slotSize + slotGap));
-    var slotY = startY;
-
-    draw_rectangle_color(slotX, slotY, slotX + slotSize, slotY + slotSize, c_gray, c_gray, c_gray, c_gray, false);
-    draw_sprite_stretched(item.sprite, 0, slotX, slotY, slotSize, slotSize);
-
-    // count badge, bottom-right corner of the slot
-    draw_set_color(c_white);
-    draw_set_halign(fa_right);
-    draw_set_valign(fa_bottom);
-    draw_text(slotX + slotSize - 2, slotY + slotSize - 2, string(item.count));
-}
-
+var guiWidth = display_get_gui_width();
+var barWidth = 200;
+var barHeight = 20;
+var barX = (guiWidth / 2) - (barWidth / 2);
+var barY = 20;
+draw_rectangle_color(barX, barY, barX + barWidth, barY + barHeight, c_black, c_black, c_black, c_black, false);
+var coldPct = oPlayer.cold / oPlayer.coldMax;
+draw_rectangle_color(barX, barY, barX + (barWidth * coldPct), barY + barHeight, c_blue, c_aqua, c_blue, c_aqua, false);
+var labelText = string(round(oPlayer.cold)) + "/" + string(oPlayer.coldMax);
+draw_set_color(c_white);
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
+draw_text(barX + (barWidth / 2), barY + (barHeight / 2), labelText);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

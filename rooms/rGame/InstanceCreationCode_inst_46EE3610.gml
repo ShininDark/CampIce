@@ -1,2 +1,0 @@
-mineralType = "coal";
-setupMineral();
