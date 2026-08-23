@@ -18,5 +18,15 @@ chopTimer = 0;
 chopInterval = 1;
 prevChopTarget = noone;
 
+// player state
+playerState = "idle";  // idle, walk, attack, dead
+facingRight = true;
+
+attackCooldown = 1.0;
+attackTimer = attackCooldown; // ready to attack immediately
+attackRange = 32;
+attackDamage = 10;
+
+isDead = false;
 
 collTilemap = layer_tilemap_get_id("tile_collide");

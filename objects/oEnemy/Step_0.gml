@@ -1,3 +1,8 @@
+if (isDead) {
+    image_alpha = lerp(image_alpha, 0, 0.05);
+    exit;
+}
+
 var distToPlayer = point_distance(x, y, oPlayer.x, oPlayer.y);
 
 // facing
@@ -35,4 +40,4 @@ switch (enemyState) {
         break;
 }
 
-event_inherited(); // run parent's movement/separation/collision AFTER state logic
+event_inherited();

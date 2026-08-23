@@ -1,3 +1,5 @@
+if (isDead) exit;
+
 var distToPlayer = point_distance(x, y, oPlayer.x, oPlayer.y);
 var stopDistance = 24; // don't get closer than this
 
