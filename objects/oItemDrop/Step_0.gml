@@ -1,4 +1,18 @@
-// scatter/bounce settle
+// 1. Vertical bounce effect (ADD THIS)
+z += z_speed;
+z_speed += gravity_z;
+
+if (z >= 0) {
+    z = 0;
+    if (abs(z_speed) > 1) {
+        z_speed = -z_speed * 0.35; // Ground bounce dampening
+    } else {
+        z_speed = 0;
+        gravity_z = 0;
+    }
+}
+
+// 2. Scatter/bounce settle 
 if (abs(hspBounce) > 0.05 || abs(vspBounce) > 0.05) {
     x += hspBounce;
     y += vspBounce;
@@ -6,11 +20,11 @@ if (abs(hspBounce) > 0.05 || abs(vspBounce) > 0.05) {
     vspBounce *= bounceFriction;
 }
 
-// pop-in scale animation
+// 3. Pop-in scale animation 
 image_xscale = lerp(image_xscale, 1, 0.2);
 image_yscale = lerp(image_yscale, 1, 0.2);
 
-// pickup delay
+// 4. Pickup delay 
 if (!canPickup) {
     pickupTimer += oGlobal.dt;
     if (pickupTimer >= pickupDelay) {
@@ -18,7 +32,7 @@ if (!canPickup) {
     }
 }
 
-// pickup check
+// 5. Pickup check 
 if (canPickup && instance_exists(oPlayer)) {
     if (point_distance(x, y, oPlayer.x, oPlayer.y) < pickupRadius) {
         addItem(itemDef, amount);

@@ -48,3 +48,7 @@ if (isLit && instance_exists(oPlayer) && point_distance(x, y, oPlayer.x, oPlayer
         }
     }
 }
+
+
+
+

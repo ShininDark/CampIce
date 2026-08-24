@@ -8,6 +8,11 @@ hspBounce = lengthdir_x(spd, dir);
 vspBounce = lengthdir_y(spd, dir);
 bounceFriction = 0.85;
 
+// vertical bounce effect 
+z = 0;             // Vertical height offset
+z_speed = -3;      // Initial upward pop strength
+gravity_z = 0.45;  // Gravity pulling item down
+
 // pickup lock
 canPickup = false;
 pickupTimer = 0;

@@ -25,6 +25,7 @@
   },
   "name":"CampIce",
   "resources":[
+    {"id":{"name":"oAnchor","path":"objects/oAnchor/oAnchor.yy",},},
     {"id":{"name":"oCampice","path":"objects/oCampice/oCampice.yy",},},
     {"id":{"name":"oColdLamp","path":"objects/oColdLamp/oColdLamp.yy",},},
     {"id":{"name":"oEnemy","path":"objects/oEnemy/oEnemy.yy",},},
@@ -43,6 +44,7 @@
     {"id":{"name":"itemDefs","path":"scripts/itemDefs/itemDefs.yy",},},
     {"id":{"name":"spawnDrop","path":"scripts/spawnDrop/spawnDrop.yy",},},
     {"id":{"name":"tileCollision","path":"scripts/tileCollision/tileCollision.yy",},},
+    {"id":{"name":"sAnchor","path":"sprites/sAnchor/sAnchor.yy",},},
     {"id":{"name":"sBirchDrop","path":"sprites/sBirchDrop/sBirchDrop.yy",},},
     {"id":{"name":"sBirchTree","path":"sprites/sBirchTree/sBirchTree.yy",},},
     {"id":{"name":"sCampice","path":"sprites/sCampice/sCampice.yy",},},
