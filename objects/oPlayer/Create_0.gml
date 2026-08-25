@@ -30,3 +30,4 @@ attackDamage = 10;
 isDead = false;
 
 collTilemap = layer_tilemap_get_id("tile_collide");
+anchorCooldown = 0;

@@ -70,7 +70,7 @@ else {
     
 // Vertical movement + collision
 var newY = y + vsp;
-if (!tileCollision(x, newY)) {
+if (!tileCollision(x, newY)) { 
     y = newY;
 } 
 else {
@@ -88,8 +88,6 @@ else{
 }
 
 cold = clamp(cold, 0, coldMax);
-
-
 
 // mining ores
 nearestMineral = instance_nearest(x, y, oMineral);
@@ -165,3 +163,24 @@ if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) <
 
 prevChopTarget = nearestTree;
 
+// --- LIGHTNING TETHER ANCHOR TRIGGER & COOLDOWN ---
+if (variable_instance_exists(id, "anchorCooldown") && anchorCooldown > 0) {
+    anchorCooldown -= oGlobal.dt;
+}
+
+if (keyboard_check_pressed(ord("E"))) {
+    if (!instance_exists(oAnchor)) {
+        // Only spawn if off cooldown
+        if (anchorCooldown <= 0) {
+            instance_create_layer(mouse_x, mouse_y, "Instances", oAnchor);
+        }
+    } else {
+        // Trigger pull if anchor is planted, then set 60s (1 min) cooldown
+        with (oAnchor) {
+            if (state == "planted") {
+                state = "pulling";
+                other.anchorCooldown = 60; // 60-second cooldown
+            }
+        }
+    }
+}

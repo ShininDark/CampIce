@@ -1,3 +1,8 @@
+// --- Skip AI while being yanked by Lightning Tether ---
+if (variable_instance_exists(id, "isTethered") && isTethered) {
+    exit;
+}
+
 if (isDead) {
     image_alpha = lerp(image_alpha, 0, 0.05);
     exit;
