@@ -26,6 +26,8 @@ takeDamage = function(amount) {
         image_index = 0;
         image_speed = 1;
         
+        spawnDrop(global.itemShard, 1, x, y);
+        
         alarm[0] = room_speed * 2; // destroy after 2 seconds
     }
 }

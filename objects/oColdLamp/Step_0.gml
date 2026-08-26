@@ -11,7 +11,7 @@ if (!isLit) {
 // interaction (hold-based)
 var inRange = isLit && instance_exists(oPlayer) && point_distance(x, y, oPlayer.x, oPlayer.y) < interactRadius;
 
-if (inRange && keyboard_check(ord("E"))) {
+if (inRange && keyboard_check(vk_control)) {
     isHolding = true;
     holdTimer += oGlobal.dt;
     

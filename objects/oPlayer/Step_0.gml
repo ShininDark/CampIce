@@ -154,7 +154,7 @@ if (variable_instance_exists(id, "anchorCooldown") && anchorCooldown > 0) {
     anchorCooldown -= oGlobal.dt;
 }
 
-if (keyboard_check_pressed(ord("E"))) {
+if (keyboard_check_pressed(vk_space)) {
     if (!instance_exists(oAnchor)) {
         // Only spawn if off cooldown
         if (anchorCooldown <= 0) {
