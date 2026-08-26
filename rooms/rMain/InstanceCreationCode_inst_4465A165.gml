@@ -1,2 +1,0 @@
-mineralType = "iron";
-setupMineral();
