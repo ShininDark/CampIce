@@ -8,8 +8,12 @@ if (!isDead && cold <= 0) {
 }
 
 if (isDead) {
-    // freeze everything else — skip movement/attack/mining while dead
-    exit;
+    // freeze the death animation on its last frame instead of looping
+    if (image_index >= image_number - 1) {
+        image_index = image_number - 1;
+        image_speed = 0;
+    }
+    exit; // skip movement/attack/mining while dead
 }
 
 // --- Facing ---

@@ -8,6 +8,13 @@ if (isDead) {
     exit;
 }
 
+if (instance_exists(oPlayer) && oPlayer.isDead) {
+    sprite_index = sEnemyIdle;
+    hsp = 0;
+    vsp = 0;
+    exit; // stop chasing/attacking once the player is dead
+}
+
 var distToPlayer = point_distance(x, y, oPlayer.x, oPlayer.y);
 
 // facing
