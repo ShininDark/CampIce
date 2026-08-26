@@ -59,23 +59,9 @@ if (moveLen > 0){
 hsp = hMove * playerSpeed * oGlobal.dt;
 vsp = vMove * playerSpeed * oGlobal.dt;
 
-// Horizontal movement + collision 
-var newX = x + hsp; 
-if (!tileCollision(newX, y)) { 
-    x = newX;
-} 
-else {
-    hsp = 0; // stop horizontal glide if blocked
-}
-    
-// Vertical movement + collision
-var newY = y + vsp;
-if (!tileCollision(x, newY)) { 
-    y = newY;
-} 
-else {
-    vsp = 0; // stop vertical glide if blocked
-}
+// Movement + collision — resolves each axis separately so the player can
+// slide along walls instead of stopping dead on diagonal input.
+moveWithTileCollision();
 
 // Campice
 var distToIce = point_distance(x, y, oCampice.x, oCampice.y);

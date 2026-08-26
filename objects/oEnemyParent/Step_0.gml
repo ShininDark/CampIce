@@ -32,19 +32,7 @@ with (oEnemyParent) {
 hsp += sepX * mobSpeed * oGlobal.dt;
 vsp += sepY * mobSpeed * oGlobal.dt;
 
-// Horizontal movement + collision
-var newX = x + hsp;
-if (!tileCollision(newX, y)) {
-    x = newX;
-} else {
-    hsp = 0;
-}
-
-// Vertical movement + collision
-var newY = y + vsp;
-if (!tileCollision(x, newY)) {
-    y = newY;
-} else {
-    vsp = 0;
-}
+// Movement + collision — resolves each axis separately so the enemy can
+// slide along walls instead of stopping dead on diagonal input.
+moveWithTileCollision();
 
