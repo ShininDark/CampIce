@@ -1,3 +1,5 @@
+depth = -y;
+
 // --- Skip AI while being yanked by Lightning Tether ---
 if (variable_instance_exists(id, "isTethered") && isTethered) {
     exit;

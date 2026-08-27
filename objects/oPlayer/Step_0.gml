@@ -1,3 +1,5 @@
+depth = -y;
+
 // --- Death check ---
 if (!isDead && cold <= 0) {
     isDead = true;

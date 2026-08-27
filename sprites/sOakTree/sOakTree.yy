@@ -1,8 +1,8 @@
 {
   "$GMSprite":"v2",
   "%Name":"sOakTree",
-  "bboxMode":0,
-  "bbox_bottom":64,
+  "bboxMode":2,
+  "bbox_bottom":49,
   "bbox_left":5,
   "bbox_right":58,
   "bbox_top":0,

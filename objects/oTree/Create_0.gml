@@ -24,3 +24,5 @@ function setupTree(){
             break;
     }
 }
+
+depth = -y;

@@ -1,3 +1,5 @@
+depth = -y;
+
 // cooldown countdown
 if (!isLit) {
     cooldownTimer += oGlobal.dt;
