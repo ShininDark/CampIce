@@ -1,3 +1,4 @@
+show_debug_message("oPlayer Create is running");
 // movement
 playerSpeed = 150;
 
@@ -40,4 +41,6 @@ hsp = 0;
 vsp = 0;
 
 anchorCooldown = 0;
+
+startDialogue(["Hello there.", "This is a test."]);
 

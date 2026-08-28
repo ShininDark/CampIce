@@ -3,8 +3,8 @@
   "%Name":"shFlash",
   "name":"shFlash",
   "parent":{
-    "name":"Shader",
-    "path":"folders/Shader.yy",
+    "name":"Shaders",
+    "path":"folders/Shaders.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

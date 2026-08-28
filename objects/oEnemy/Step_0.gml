@@ -21,6 +21,12 @@ if (instance_exists(oPlayer) && oPlayer.isDead) {
     exit; // stop chasing/attacking once the player is dead
 }
 
+if (global.gamePaused) {
+    hsp = 0;
+    vsp = 0;
+    exit;
+}
+
 if (flickerTimer > 0) {
     flickerTimer -= oGlobal.dt;
     if (flickerTimer < 0) flickerTimer = 0;

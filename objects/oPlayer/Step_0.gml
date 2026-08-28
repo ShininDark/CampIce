@@ -18,6 +18,10 @@ if (isDead) {
     exit; // skip movement/attack/mining while dead
 }
 
+if (global.gamePaused) {
+    exit;
+}
+
 // --- Facing ---
 var hMove = keyboard_check(ord("D")) - keyboard_check(ord("A"));
 var vMove = keyboard_check(ord("S")) - keyboard_check(ord("W"));
