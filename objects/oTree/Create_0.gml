@@ -5,6 +5,8 @@ sellValue = 5;          // default value
 treeHealthMax = treeHealth;
 isMining = false;
 
+displayedHealthPct = 1;
+
 function setupTree(){
     switch (treeType){
         case "oak":

@@ -5,6 +5,8 @@ sellValue = 5;          // default value
 mineralHealthMax = mineralHealth; 
 isMining = false;
 
+displayedHealthPct = 1; // starts full (1.0 = 100%)
+
 function setupMineral(){
     switch (mineralType){
         case "coal":
