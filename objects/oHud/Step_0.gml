@@ -8,17 +8,18 @@ if (fadeState == "fadingOut") {
     }
 }
 
+var currentQuestKey = getQuestObjectiveKey();
 var currentQuestText = getQuestHudText();
 
 switch (questState) {
     case "idle":
-        if (currentQuestText != lastQuestText && lastQuestText != "") {
-            // quest changed — show "Completed!" first
+        if (currentQuestKey != lastQuestKey && lastQuestKey != "") {
             questState = "showingComplete";
             questCompleteTimer = 0;
         } else {
             questDisplayText = currentQuestText;
             lastQuestText = currentQuestText;
+            lastQuestKey = currentQuestKey;
         }
         break;
         
@@ -29,6 +30,7 @@ switch (questState) {
             questSlideTimer = 0;
             questDisplayText = currentQuestText;
             lastQuestText = currentQuestText;
+            lastQuestKey = currentQuestKey;
         }
         break;
         

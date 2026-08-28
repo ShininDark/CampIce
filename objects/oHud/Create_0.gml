@@ -9,3 +9,5 @@ questCompleteDuration = 1.2; // how long "Completed!" shows
 questSlideTimer = 0;
 questSlideDuration = 0.3; // how long the slide-in animation takes
 questState = "idle"; // idle, showingComplete, slidingIn
+
+lastQuestKey = "";

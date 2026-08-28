@@ -19,3 +19,21 @@ function getQuestHudText() {
     }
     return "";
 }
+
+function getQuestObjectiveKey() {
+    switch (global.questStage) {
+        case 0: return "talk_lunatic";
+        case 1: return "mine_ore";
+        case 2: return "chop_tree";
+        case 3: return "kill_enemy";
+        case 100:
+            if (global.questOreCount < global.questOreTarget) return "parallel_ore";
+            if (global.questLogCount < global.questLogTarget) return "parallel_log";
+            if (global.questKillCount < global.questKillTarget) return "parallel_kill";
+            if (global.questUpgradesBought < global.questUpgradesTarget) return "parallel_upgrade";
+            return "parallel_done";
+        case 200: return "buy_falo";
+        case 999: return "done";
+    }
+    return "";
+}
