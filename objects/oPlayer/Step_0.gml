@@ -111,7 +111,11 @@ if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMin
                 
                 clearCollisionAt(nearestMineral.x, nearestMineral.y);
                 instance_destroy(nearestMineral);
-                show_debug_message("Mined: " + string(minedType));
+                if (global.questStage == 1) {
+                    global.questStage = 2;
+                } else if (global.questStage == 100) {
+                    global.questOreCount = min(global.questOreCount + 1, global.questOreTarget);
+                }
             }
         }
     }
@@ -149,7 +153,11 @@ if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) <
                 
                 clearCollisionAt(nearestTree.x, nearestTree.y);
                 instance_destroy(nearestTree);
-                show_debug_message("Chopped: " + string(choppedType));
+                if (global.questStage == 2) {
+                    global.questStage = 3;
+                } else if (global.questStage == 100) {
+                    global.questLogCount = min(global.questLogCount + 1, global.questLogTarget);
+                }
             }
         }
     }

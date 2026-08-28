@@ -67,6 +67,10 @@ if (shopOpen) {
             removeItemAmount(global.itemIron, 3);
             removeItemAmount(global.itemShard, 3);
             faloBought = true;
+            if (global.questStage == 200) {
+                global.questStage = 999;
+                // TODO: trigger end scene here later
+            }
         }
         
         var faloScale = 2.5; // tune until it looks right against the block size
@@ -93,6 +97,9 @@ if (shopOpen) {
                 treeHealthMax = max(1, treeHealthMax - 2);
             }
             axeUpgradeBought = true;
+            if (global.questStage == 100) {
+                global.questUpgradesBought = min(global.questUpgradesBought + 1, global.questUpgradesTarget);
+            }
         }
         upY += upH + spacing;
         
@@ -108,6 +115,9 @@ if (shopOpen) {
                 mineralHealthMax = max(1, mineralHealthMax - 2);
             }
             pickaxeUpgradeBought = true;
+            if (global.questStage == 100) {
+                global.questUpgradesBought = min(global.questUpgradesBought + 1, global.questUpgradesTarget);
+            }
         }
         upY += upH + spacing;
         
@@ -118,6 +128,9 @@ if (shopOpen) {
             removeItemAmount(global.itemShard, 1);
             oPlayer.attackDamage += 5;
             damageUpgradeBought = true;
+            if (global.questStage == 100) {
+                global.questUpgradesBought = min(global.questUpgradesBought + 1, global.questUpgradesTarget);
+            }
         }
     }
     

@@ -46,6 +46,7 @@
     {"id":{"name":"drawSlotRow","path":"scripts/drawSlotRow/drawSlotRow.yy",},},
     {"id":{"name":"getItemDef","path":"scripts/getItemDef/getItemDef.yy",},},
     {"id":{"name":"itemDefs","path":"scripts/itemDefs/itemDefs.yy",},},
+    {"id":{"name":"quest","path":"scripts/quest/quest.yy",},},
     {"id":{"name":"shopFunctions","path":"scripts/shopFunctions/shopFunctions.yy",},},
     {"id":{"name":"spawnDrop","path":"scripts/spawnDrop/spawnDrop.yy",},},
     {"id":{"name":"tileCollision","path":"scripts/tileCollision/tileCollision.yy",},},

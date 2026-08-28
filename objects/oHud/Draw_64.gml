@@ -1,3 +1,11 @@
+var questText = getQuestHudText();
+if (questText != "") {
+    draw_set_color(c_white);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_text(20, 20, "Quest: " + questText);
+}
+
 var guiW = display_get_gui_width();
 var guiH = display_get_gui_height();
 

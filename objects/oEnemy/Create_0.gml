@@ -35,6 +35,12 @@ takeDamage = function(amount) {
         
         spawnDrop(global.itemShard, 1, x, y);
         
+        if (global.questStage == 3) {
+            global.questStage = 100; // tutorial done, enter parallel phase
+        } else if (global.questStage == 100) {
+            global.questKillCount = min(global.questKillCount + 1, global.questKillTarget);
+        }
+        
         alarm[0] = room_speed * 2;
     }
 }
