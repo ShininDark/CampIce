@@ -1,6 +1,9 @@
 var inRange = instance_exists(oPlayer) && point_distance(x, y, oPlayer.x, oPlayer.y) < interactRadius;
 
-if (inRange && keyboard_check_pressed(ord("E")) && !global.gamePaused) {
+var dialogueJustClosed = wasDialogueActive && !global.gamePaused;
+wasDialogueActive = global.gamePaused;
+
+if (inRange && keyboard_check_pressed(ord("E")) && !global.gamePaused && !dialogueJustClosed) {
     if (global.questStage == 0) {
         startDialogue([
             "Hey there, welcome to camp.",

@@ -10,3 +10,5 @@ pickaxeUpgradeBought = false;
 damageUpgradeBought = false;
 
 faloBought = false;
+
+wasDialogueActive = false;
