@@ -17,5 +17,10 @@ function startColdLampCutscene() {
     with (oCutscene) {
         active = true;
         state = "panToLunatic";
+        
+        normalViewW = camera_get_view_width(cam);
+        normalViewH = camera_get_view_height(cam);
+        zoomedViewW = normalViewW * zoomFactor;
+        zoomedViewH = normalViewH * zoomFactor;
     }
 }
