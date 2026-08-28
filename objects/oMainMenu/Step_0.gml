@@ -21,5 +21,5 @@ if (point_in_rectangle(mouse_x, mouse_y, exitX1, exitY1, exitX2, exitY2) && clic
 }
 
 if (point_in_rectangle(mouse_x, mouse_y, settingsX1, settingsY1, settingsX2, settingsY2) && clicked) {
-    show_debug_message("Settings clicked — not implemented yet");
+    openOptionsPanel(false);
 }
