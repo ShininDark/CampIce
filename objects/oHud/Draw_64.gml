@@ -1,3 +1,23 @@
+var guiW = display_get_gui_width();
+var guiH = display_get_gui_height();
+
+if (instance_exists(oPlayer)) {
+    var coldPct = clamp(oPlayer.cold / oPlayer.coldMax, 0, 1);
+    
+    var dangerStart = 0.5; // vignette starts appearing once cold drops below this
+    var vignetteAlpha = 0;
+    
+    if (coldPct < dangerStart) {
+        vignetteAlpha = 1 - (coldPct / dangerStart);
+    }
+    
+    if (vignetteAlpha > 0) {
+        draw_set_alpha(vignetteAlpha);
+        draw_sprite_stretched(sVignette, 0, 0, 0, guiW, guiH);
+        draw_set_alpha(1);
+    }
+}
+
 var guiWidth = display_get_gui_width();
 var barWidth = 200;
 var barHeight = 20;
@@ -61,4 +81,6 @@ if (fadeState == "fadingOut") {
     draw_rectangle_color(0, 0, guiW, guiH, c_black, c_black, c_black, c_black, false);
     draw_set_alpha(1);
 }
+
+
 
