@@ -105,6 +105,7 @@ if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMin
                     spawnDrop(itemDef, 1, nearestMineral.x, nearestMineral.y);
                 }
                 
+                clearCollisionAt(nearestMineral.x, nearestMineral.y);
                 instance_destroy(nearestMineral);
                 show_debug_message("Mined: " + string(minedType));
             }
@@ -142,6 +143,7 @@ if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) <
                     spawnDrop(itemDef, 1, nearestTree.x, nearestTree.y);
                 }
                 
+                clearCollisionAt(nearestTree.x, nearestTree.y);
                 instance_destroy(nearestTree);
                 show_debug_message("Chopped: " + string(choppedType));
             }

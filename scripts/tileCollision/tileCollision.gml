@@ -35,3 +35,18 @@ function moveWithTileCollision(){
 	}
 	y += vsp;
 }
+
+// Clears collision tiles in a small radius around a world position.
+// Use when an obstacle (tree, ore) is destroyed, so its collision footprint
+// doesn't linger as invisible collision after the visual is gone.
+function clearCollisionAt(xx, yy) {
+    if (collTilemap == -1 || collTilemap == noone) return;
+    
+    var clearRadius = 24; // tune to match how big your trees/ores are
+    
+    for (var checkX = xx - clearRadius; checkX <= xx + clearRadius; checkX += COLLISION_TILE_SIZE) {
+        for (var checkY = yy - clearRadius; checkY <= yy + clearRadius; checkY += COLLISION_TILE_SIZE) {
+            tilemap_set_at_pixel(collTilemap, 0, checkX, checkY);
+        }
+    }
+}
