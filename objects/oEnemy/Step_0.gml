@@ -6,6 +6,10 @@ if (variable_instance_exists(id, "isTethered") && isTethered) {
 }
 
 if (isDead) {
+    if (image_index >= image_number - 1) {
+        image_index = image_number - 1;
+        image_speed = 0;
+    }
     image_alpha = lerp(image_alpha, 0, 0.05);
     exit;
 }
@@ -15,6 +19,11 @@ if (instance_exists(oPlayer) && oPlayer.isDead) {
     hsp = 0;
     vsp = 0;
     exit; // stop chasing/attacking once the player is dead
+}
+
+if (flickerTimer > 0) {
+    flickerTimer -= oGlobal.dt;
+    if (flickerTimer < 0) flickerTimer = 0;
 }
 
 var distToPlayer = point_distance(x, y, oPlayer.x, oPlayer.y);

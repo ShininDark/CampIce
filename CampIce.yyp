@@ -10,6 +10,7 @@
   },
   "defaultScriptType":1,
   "Folders":[
+    {"$GMFolder":"","%Name":"Shader","folderPath":"folders/Shader.yy","name":"Shader","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Rooms","folderPath":"folders/Rooms.yy","name":"Rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -46,6 +47,7 @@
     {"id":{"name":"shopFunctions","path":"scripts/shopFunctions/shopFunctions.yy",},},
     {"id":{"name":"spawnDrop","path":"scripts/spawnDrop/spawnDrop.yy",},},
     {"id":{"name":"tileCollision","path":"scripts/tileCollision/tileCollision.yy",},},
+    {"id":{"name":"shFlash","path":"shaders/shFlash/shFlash.yy",},},
     {"id":{"name":"sAnchor","path":"sprites/sAnchor/sAnchor.yy",},},
     {"id":{"name":"sBirchDrop","path":"sprites/sBirchDrop/sBirchDrop.yy",},},
     {"id":{"name":"sBirchTree","path":"sprites/sBirchTree/sBirchTree.yy",},},

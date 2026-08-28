@@ -75,8 +75,6 @@ if (instance_exists(oPlayer) && oPlayer.isDead) {
 
 // fade-to-black overlay, drawn on top of everything (including the death screen above)
 if (fadeState == "fadingOut") {
-    var guiW = display_get_gui_width();
-    var guiH = display_get_gui_height();
     draw_set_alpha(fadeAlpha);
     draw_rectangle_color(0, 0, guiW, guiH, c_black, c_black, c_black, c_black, false);
     draw_set_alpha(1);

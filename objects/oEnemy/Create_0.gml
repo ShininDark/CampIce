@@ -10,6 +10,9 @@ attackDamage = 10;
 
 facingRight = true;
 
+flickerTimer = 0;
+flickerDuration = 0.5; // seconds of white flash per hit
+
 // health
 hp = 30;
 isDead = false;
@@ -17,7 +20,11 @@ isDead = false;
 takeDamage = function(amount) {
     if (isDead) return;
     
+    show_debug_message("takeDamage called, amount=" + string(amount));
+
     hp -= amount;
+    flickerTimer = flickerDuration; // start the flash
+    
     if (hp <= 0) {
         hp = 0;
         isDead = true;
@@ -28,6 +35,6 @@ takeDamage = function(amount) {
         
         spawnDrop(global.itemShard, 1, x, y);
         
-        alarm[0] = room_speed * 2; // destroy after 2 seconds
+        alarm[0] = room_speed * 2;
     }
 }
