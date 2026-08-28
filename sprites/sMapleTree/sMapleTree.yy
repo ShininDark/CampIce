@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"Trees and Ores",
+    "path":"folders/Sprites/Trees and Ores.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
