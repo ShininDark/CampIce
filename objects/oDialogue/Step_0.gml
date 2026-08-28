@@ -6,7 +6,11 @@ if (active) {
         
         if (lineIndex >= array_length(lines)) {
             active = false;
-            global.gamePaused = false;
+            
+            // Only unpause here if no cutscene is still driving the pause.
+            if (!instance_exists(oCutscene) || !oCutscene.active) {
+                global.gamePaused = false;
+            }
             
             var cb = onComplete;
             onComplete = noone;

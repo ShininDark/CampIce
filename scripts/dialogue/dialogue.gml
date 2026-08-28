@@ -7,3 +7,15 @@ function startDialogue(linesArr, callback = noone) {
         onComplete = callback;
     }
 }
+
+function startColdLampCutscene() {
+    global.gamePaused = true;
+    
+    var cam = view_camera[0];
+    camera_set_view_target(cam, noone);
+    
+    with (oCutscene) {
+        active = true;
+        state = "panToLunatic";
+    }
+}

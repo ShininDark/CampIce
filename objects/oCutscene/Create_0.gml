@@ -1,0 +1,10 @@
+active = false;
+state = "";
+timer = 0;
+targetLamp = noone;
+panStartX = 0;
+panStartY = 0;
+panTargetX = 0;
+panTargetY = 0;
+panTimer = 0;
+panDuration = 1.0;

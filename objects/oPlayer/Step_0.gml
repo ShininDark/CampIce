@@ -18,6 +18,15 @@ if (isDead) {
     exit; // skip movement/attack/mining while dead
 }
 
+if (!global.coldLampHeadsUpShown && cold <= 60) {
+    global.coldLampHeadsUpShown = true;
+    startColdLampCutscene();
+}
+
+if (global.gamePaused) {
+    exit;
+}
+
 if (global.gamePaused) {
     exit;
 }

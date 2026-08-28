@@ -29,6 +29,7 @@
     {"id":{"name":"oAnchor","path":"objects/oAnchor/oAnchor.yy",},},
     {"id":{"name":"oCampice","path":"objects/oCampice/oCampice.yy",},},
     {"id":{"name":"oColdLamp","path":"objects/oColdLamp/oColdLamp.yy",},},
+    {"id":{"name":"oCutscene","path":"objects/oCutscene/oCutscene.yy",},},
     {"id":{"name":"oDialogue","path":"objects/oDialogue/oDialogue.yy",},},
     {"id":{"name":"oEnemy","path":"objects/oEnemy/oEnemy.yy",},},
     {"id":{"name":"oEnemyParent","path":"objects/oEnemyParent/oEnemyParent.yy",},},
