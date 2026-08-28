@@ -41,4 +41,5 @@ vsp = 0;
 
 anchorCooldown = 0;
 
-
+// re-attach camera following, in case a previous cutscene detached it
+camera_set_view_target(view_camera[0], id);

@@ -1,3 +1,5 @@
+if (global.gamePaused) exit;
+
 var clicked = mouse_check_button_pressed(mb_left);
 
 if (point_in_rectangle(mouse_x, mouse_y, playX1, playY1, playX2, playY2) && clicked) {

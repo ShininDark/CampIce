@@ -60,8 +60,6 @@ if (shopOpen) {
         ];
         
         if (drawUpgradeBlock(contentX, contentY, upW, upH, "Falo", faloCostLines, canAffordFalo, faloBought, mx, my, clicked)) {
-            show_debug_message("STEP A: Falo block returned true. questStage=" + string(global.questStage));
-            
             removeItemAmount(global.itemOak, 3);
             removeItemAmount(global.itemBirch, 3);
             removeItemAmount(global.itemMaple, 3);
@@ -71,21 +69,16 @@ if (shopOpen) {
             removeItemAmount(global.itemShard, 3);
             faloBought = true;
             
-                var sceneArr = [
-                    { image: sEnd1, lines: ["Test line 1"] },
-                    { image: sEnd2, lines: ["Test line 2"] },
-                    { image: sEnd3, lines: ["Test line 3"] }
-                ];
-                show_debug_message("Falo bought, scene array length=" + string(array_length(sceneArr)));
-                startSceneSequence(sceneArr);
+            var sceneArr = [
+                { image: sEnd1, lines: ["You hand over the last of your supplies."] },
+                { image: sEnd2, lines: ["Falo starts behaving out of the ordinary..."] },
+                { image: sEnd3, lines: ["Falo takes over your mind and now you take upon the role of lunatic"] }
+            ];
+            startSceneSequence(sceneArr, function() {
+                game_restart();
+            });
         }
-        
-        
-        /* startSceneSequence([
-                    { image: sEnd1, lines: ["You hand over the last of your supplies."] },
-                    { image: sEnd2, lines: ["Falo starts behaving out of the ordinary..."] },
-                    { image: sEnd3, lines: ["Falo takes over your mind and now you take upon the role of lunatic"] }
-                ]); */
+
         
         var faloScale = 2.5;
         var faloSpriteX = contentX + upW - 40;

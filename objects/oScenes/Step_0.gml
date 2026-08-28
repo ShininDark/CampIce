@@ -1,4 +1,6 @@
-if (!active) exit;
+if (!active) exit; 
+
+show_debug_message("oScenes: active=" + string(active) + " fadeState=" + string(fadeState) + " sceneIndex=" + string(sceneIndex) + " scenesLen=" + string(array_length(scenes)));
 
 if (justActivated) {
     justActivated = false;
