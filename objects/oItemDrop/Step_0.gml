@@ -33,8 +33,9 @@ if (!canPickup) {
 }
 
 // 5. Pickup check 
-if (canPickup && instance_exists(oPlayer)) {
+if (canPickup && z == 0 && z_speed == 0 && instance_exists(oPlayer)) {
     if (point_distance(x, y, oPlayer.x, oPlayer.y) < pickupRadius) {
+        playSfx(sndItemPickup);
         addItem(itemDef, amount);
         instance_destroy();
     }

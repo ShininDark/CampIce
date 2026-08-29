@@ -42,10 +42,12 @@ if (inGameMode) {
     saveExitHovered = point_in_rectangle(mx, my, saveExitX1, saveExitY1, saveExitX2, saveExitY2);
     
     if (resumeHovered && mouse_check_button_pressed(mb_left)) {
+        playSfx(sndButtonClick);
         closeOptionsPanel();
     }
     
     if (saveExitHovered && mouse_check_button_pressed(mb_left)) {
+        playSfx(sndButtonClick);
         show_debug_message("Save & Exit clicked — not implemented yet");
     }
 } else {
@@ -62,21 +64,30 @@ var sliderTouchPad = 10;
 if (mouse_check_button(mb_left) && point_in_rectangle(mx, my, sliderX1, sliderY - sliderTouchPad, sliderX2, sliderY + sliderTouchPad)) {
     global.musicVolume = clamp((mx - sliderX1) / (sliderX2 - sliderX1), 0, 1);
     global.musicMuted = false;
-    if (variable_global_exists("menuMusicId") && audio_is_playing(global.menuMusicId)) {
-        audio_sound_gain(global.menuMusicId, global.musicVolume, 100);
+    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+        audio_sound_gain(global.currentMusicId, global.musicMuted ? 0 : global.musicVolume, 100);
     }
 }
 
 if (keyboard_check_pressed(vk_left)) {
     global.musicVolume = max(0, global.musicVolume - 0.1);
     global.musicMuted = false;
+    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+        audio_sound_gain(global.currentMusicId, global.musicVolume, 100);
+    }
 }
 if (keyboard_check_pressed(vk_right)) {
     global.musicVolume = min(1, global.musicVolume + 0.1);
     global.musicMuted = false;
+    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+        audio_sound_gain(global.currentMusicId, global.musicVolume, 100);
+    }
 }
 if (keyboard_check_pressed(ord("M"))) {
     global.musicMuted = !global.musicMuted;
+    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+        audio_sound_gain(global.currentMusicId, global.musicMuted ? 0 : global.musicVolume, 100);
+    }
 }
 
 if (keyboard_check_pressed(vk_escape)) {

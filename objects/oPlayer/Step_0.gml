@@ -44,10 +44,10 @@ attackTimer += oGlobal.dt;
 
 // --- Attack trigger ---
 if (mouse_check_button_pressed(mb_left) && attackTimer >= attackCooldown) {
+    playSfx(sndSword);
     playerState = "attack";
     attackTimer = 0;
     
-    // find nearest enemy in range
     var target = instance_nearest(x, y, oEnemy);
     if (target != noone && point_distance(x, y, target.x, target.y) <= attackRange) {
         target.takeDamage(attackDamage);

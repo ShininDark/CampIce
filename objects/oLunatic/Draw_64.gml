@@ -47,10 +47,9 @@ if (shopOpen) {
         var upW = panelW - 40;
         var upH = 110;
         
-        /* var canAffordFalo = hasItemAmount(global.itemOak, 3) && hasItemAmount(global.itemBirch, 3) && hasItemAmount(global.itemMaple, 3)
+        var canAffordFalo = hasItemAmount(global.itemOak, 3) && hasItemAmount(global.itemBirch, 3) && hasItemAmount(global.itemMaple, 3)
         && hasItemAmount(global.itemCoal, 3) && hasItemAmount(global.itemGold, 3) && hasItemAmount(global.itemIron, 3)
-        && hasItemAmount(global.itemShard, 3); */
-        var canAffordFalo = true;
+        && hasItemAmount(global.itemShard, 3);
         
         var faloCostLines = [
             "Cost:",
@@ -60,6 +59,7 @@ if (shopOpen) {
         ];
         
         if (drawUpgradeBlock(contentX, contentY, upW, upH, "Falo", faloCostLines, canAffordFalo, faloBought, mx, my, clicked)) {
+            playSfx(sndPurchase);
             removeItemAmount(global.itemOak, 3);
             removeItemAmount(global.itemBirch, 3);
             removeItemAmount(global.itemMaple, 3);
@@ -96,6 +96,7 @@ if (shopOpen) {
         var canAffordAxe = hasItemAmount(global.itemOak, 1) && hasItemAmount(global.itemBirch, 1) && hasItemAmount(global.itemMaple, 1);
         var axeCostLines = ["Cost: 1 oak, 1 birch, 1 maple"];
         if (drawUpgradeBlock(contentX, upY, upW, upH, "Sharper Axe (-2 tree hits)", axeCostLines, canAffordAxe, axeUpgradeBought, mx, my, clicked)) {
+            playSfx(sndPurchase);
             removeItemAmount(global.itemOak, 1);
             removeItemAmount(global.itemBirch, 1);
             removeItemAmount(global.itemMaple, 1);
@@ -114,6 +115,7 @@ if (shopOpen) {
         var canAffordPickaxe = hasItemAmount(global.itemCoal, 1) && hasItemAmount(global.itemGold, 1) && hasItemAmount(global.itemIron, 1);
         var pickaxeCostLines = ["Cost: 1 coal, 1 gold, 1 iron"];
         if (drawUpgradeBlock(contentX, upY, upW, upH, "Sharper Pickaxe (-2 ore hits)", pickaxeCostLines, canAffordPickaxe, pickaxeUpgradeBought, mx, my, clicked)) {
+            playSfx(sndPurchase);
             removeItemAmount(global.itemCoal, 1);
             removeItemAmount(global.itemGold, 1);
             removeItemAmount(global.itemIron, 1);
@@ -132,6 +134,7 @@ if (shopOpen) {
         var canAffordDamage = hasItemAmount(global.itemShard, 1);
         var damageCostLines = ["Cost: 1 shard"];
         if (drawUpgradeBlock(contentX, upY, upW, upH, "Sharper Blade (+5 damage)", damageCostLines, canAffordDamage, damageUpgradeBought, mx, my, clicked)) {
+            playSfx(sndPurchase);
             removeItemAmount(global.itemShard, 1);
             oPlayer.attackDamage += 5;
             damageUpgradeBought = true;
