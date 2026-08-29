@@ -48,7 +48,9 @@ if (inGameMode) {
     
     if (saveExitHovered && mouse_check_button_pressed(mb_left)) {
         playSfx(sndButtonClick);
-        show_debug_message("Save & Exit clicked — not implemented yet");
+        if (SaveGameWrite()) {
+            game_restart();
+        }
     }
 } else {
     resumeHovered = false;

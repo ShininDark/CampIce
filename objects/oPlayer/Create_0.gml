@@ -43,3 +43,10 @@ anchorCooldown = 0;
 
 // re-attach camera following, in case a previous cutscene detached it
 camera_set_view_target(view_camera[0], id);
+
+if (variable_global_exists("pendingLoad") && is_struct(global.pendingLoad) && global.pendingLoad.active) {
+    x = global.pendingLoad.playerX;
+    y = global.pendingLoad.playerY;
+    cold = global.pendingLoad.playerCold;
+    attackDamage = global.pendingLoad.playerAttackDamage;
+}

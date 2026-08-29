@@ -1,3 +1,7 @@
+// oTree Create event, at the very top
+saveId = "tree_" + string(x) + "_" + string(y);
+
+
 treeType = "oak";   // default creation value to prevent crash, overridden by instance creation code
 treeHealth = 3;     // default value
 sellValue = 5;          // default value

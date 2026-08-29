@@ -13,3 +13,12 @@ if (hoveredExit) draw_rectangle_color(exitX1, exitY1, exitX2, exitY2, c_gray, c_
 if (hoveredSettings) draw_rectangle_color(settingsX1, settingsY1, settingsX2, settingsY2, c_gray, c_gray, c_gray, c_gray, false);
 
 draw_set_alpha(1);
+
+if (menuNoticeTimer > 0) {
+    draw_set_color(c_white);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text((loadX1+loadX2)/2, loadY2 + 30, menuNotice);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+}

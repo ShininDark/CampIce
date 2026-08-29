@@ -7,6 +7,7 @@ function getItemDef(typeStr) {
         case "coal":  return global.itemCoal;
         case "gold":  return global.itemGold;
         case "iron":  return global.itemIron;
+        case "shard": return global.itemShard;
         default:
             show_debug_message("getItemDef: unknown type " + string(typeStr));
             return noone;

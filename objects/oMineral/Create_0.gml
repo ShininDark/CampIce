@@ -26,3 +26,5 @@ function setupMineral(){
             break;
     }
 }
+
+saveId = "mineral_" + string(x) + "_" + string(y);

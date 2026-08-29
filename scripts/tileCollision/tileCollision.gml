@@ -40,13 +40,17 @@ function moveWithTileCollision(){
 // Use when an obstacle (tree, ore) is destroyed, so its collision footprint
 // doesn't linger as invisible collision after the visual is gone.
 function clearCollisionAt(xx, yy) {
-    if (collTilemap == -1 || collTilemap == noone) return;
+    var tilemap = -1;
+    if (layer_exists("tile_collide")) {
+        tilemap = layer_tilemap_get_id("tile_collide");
+    }
+    if (tilemap == -1 || tilemap == noone) return;
     
-    var clearRadius = 24; // tune to match how big your trees/ores are
+    var clearRadius = 24;
     
     for (var checkX = xx - clearRadius; checkX <= xx + clearRadius; checkX += COLLISION_TILE_SIZE) {
         for (var checkY = yy - clearRadius; checkY <= yy + clearRadius; checkY += COLLISION_TILE_SIZE) {
-            tilemap_set_at_pixel(collTilemap, 0, checkX, checkY);
+            tilemap_set_at_pixel(tilemap, 0, checkX, checkY);
         }
     }
 }

@@ -19,6 +19,7 @@ if (isDead) {
 }
 
 if (!global.coldLampHeadsUpShown && cold <= 60) {
+    show_debug_message("Triggering cutscene, flag was: " + string(global.coldLampHeadsUpShown));
     global.coldLampHeadsUpShown = true;
     startColdLampCutscene();
 }
@@ -119,6 +120,7 @@ if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMin
                 }
                 
                 clearCollisionAt(nearestMineral.x, nearestMineral.y);
+                array_push(global.harvestedNodeIds, nearestMineral.saveId);
                 instance_destroy(nearestMineral);
                 if (global.questStage == 1) {
                     global.questStage = 2;
@@ -161,6 +163,7 @@ if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) <
                 }
                 
                 clearCollisionAt(nearestTree.x, nearestTree.y);
+                array_push(global.harvestedNodeIds, nearestTree.saveId);
                 instance_destroy(nearestTree);
                 if (global.questStage == 2) {
                     global.questStage = 3;

@@ -13,3 +13,7 @@ if (instance_exists(oCutscene)) instance_destroy(oCutscene);
 if (!variable_global_exists("gamePaused")) {
     global.gamePaused = false;
 }
+
+loadAvailable = SaveGameExists();
+menuNotice = "";
+menuNoticeTimer = 0;

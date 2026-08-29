@@ -14,3 +14,8 @@ for (var i = 0; i < array_length(invAnims); i++) {
 }
 
 invOpen = false;
+
+if (variable_global_exists("pendingLoad") && is_struct(global.pendingLoad) && global.pendingLoad.active) {
+    hotbar = saveSlotsFromSimple(global.pendingLoad.hotbar, hotbarSize);
+    inventory = saveSlotsFromSimple(global.pendingLoad.inventory, invTotal);
+}

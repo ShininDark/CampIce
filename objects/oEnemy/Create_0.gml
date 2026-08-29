@@ -1,5 +1,11 @@
 event_inherited();
 
+saveId = "enemy_" + string(x) + "_" + string(y);
+if (variable_global_exists("harvestedNodeIds") && array_contains(global.harvestedNodeIds, saveId)) {
+    instance_destroy();
+    exit;
+}
+
 sprite_index = sEnemyIdle;
 enemyState = "idle";
 
@@ -17,6 +23,8 @@ flickerDuration = 0.5; // seconds of white flash per hit
 hp = 30;
 isDead = false;
 
+
+
 takeDamage = function(amount) {
     if (isDead) return;
     
@@ -28,6 +36,7 @@ takeDamage = function(amount) {
     if (hp <= 0) {
         hp = 0;
         isDead = true;
+        array_push(global.harvestedNodeIds, saveId);
         enemyState = "dead";
         sprite_index = sEnemyDeath;
         image_index = 0;
