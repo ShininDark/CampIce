@@ -1,7 +1,5 @@
 if (!active) exit; 
 
-show_debug_message("oScenes: active=" + string(active) + " fadeState=" + string(fadeState) + " sceneIndex=" + string(sceneIndex) + " scenesLen=" + string(array_length(scenes)));
-
 if (justActivated) {
     justActivated = false;
     exit;
@@ -14,9 +12,11 @@ if (fadeState == "fadingOut") {
         fadeAlpha = 1;
         sceneIndex = pendingSceneIndex;
         lineIndex = 0;
+        typedChars = 0;
+        typeTimer = 0;
         fadeState = "fadingIn";
     }
-    exit; // no input processing while fading
+    exit;
 }
 
 if (fadeState == "fadingIn") {
@@ -28,27 +28,6 @@ if (fadeState == "fadingIn") {
     exit;
 }
 
-// --- Normal input handling (only when not mid-fade) ---
-if (keyboard_check_pressed(ord("E")) || mouse_check_button_pressed(mb_left)) {
-    lineIndex++;
-    
-    var currentScene = scenes[sceneIndex];
-    
-    if (lineIndex >= array_length(currentScene.lines)) {
-        var nextIndex = sceneIndex + 1;
-        
-        if (nextIndex >= array_length(scenes)) {
-            // sequence fully done — fade out one last time, then stop
-            fadeState = "fadingOutFinal";
-            fadeAlpha = 0;
-        } else {
-            // more scenes left — fade out, then switch to the next one
-            pendingSceneIndex = nextIndex;
-            fadeState = "fadingOut";
-            fadeAlpha = 0;
-        }
-    }
-}
 
 // --- Handle final fade-out (end of whole sequence) ---
 if (fadeState == "fadingOutFinal") {
@@ -61,6 +40,46 @@ if (fadeState == "fadingOutFinal") {
         onComplete = noone;
         if (cb != noone) {
             cb();
+        }
+    }
+}
+
+// --- Typewriter progression (only when not mid-fade) ---
+var currentScene = scenes[sceneIndex];
+
+if (lineIndex >= array_length(currentScene.lines)) exit; // mid-transition, nothing to type
+
+var currentLine = currentScene.lines[lineIndex];
+var lineLength = string_length(currentLine);
+var isFullyTyped = typedChars >= lineLength;
+
+if (!isFullyTyped) {
+    typeTimer += delta_time / 1000000;
+    var charsToShow = floor(typeTimer * typeSpeed);
+    typedChars = min(charsToShow, lineLength);
+}
+
+if (keyboard_check_pressed(ord("E")) || mouse_check_button_pressed(mb_left)) {
+    if (!isFullyTyped) {
+        // First press: skip straight to the full line
+        typedChars = lineLength;
+    } else {
+        // Line already fully shown: advance
+        lineIndex++;
+        typedChars = 0;
+        typeTimer = 0;
+        
+        if (lineIndex >= array_length(currentScene.lines)) {
+            var nextIndex = sceneIndex + 1;
+            
+            if (nextIndex >= array_length(scenes)) {
+                fadeState = "fadingOutFinal";
+                fadeAlpha = 0;
+            } else {
+                pendingSceneIndex = nextIndex;
+                fadeState = "fadingOut";
+                fadeAlpha = 0;
+            }
         }
     }
 }

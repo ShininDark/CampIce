@@ -1,13 +1,15 @@
 active = false;
+justActivated = false;
 sceneIndex = 0;
 lineIndex = 0;
 scenes = [];
 onComplete = noone;
 
-justActivated = false;
-
-// fade transition state
-fadeState = "none"; // none, fadingOut, fadingIn
+fadeState = "none";
 fadeAlpha = 0;
-fadeSpeed = 0.03; // tune for faster/slower fades
-pendingSceneIndex = 0; // which scene to switch to once fade-out completes
+fadeSpeed = 0.03;
+pendingSceneIndex = 0;
+
+typedChars = 0;
+typeSpeed = 30;
+typeTimer = 0;

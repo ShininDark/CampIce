@@ -13,7 +13,9 @@ if (active) {
     draw_set_color(c_white);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
-    draw_text_ext(boxX + 16, boxY + 16, lines[lineIndex], -1, boxW - 32);
+    var currentLine = lines[lineIndex];
+    var visibleText = string_copy(currentLine, 1, typedChars);
+    draw_text_ext(boxX + 16, boxY + 16, visibleText, -1, boxW - 32);
     
     draw_set_halign(fa_right);
     draw_set_valign(fa_bottom);
