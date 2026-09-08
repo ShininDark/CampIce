@@ -29,10 +29,32 @@ with (oEnemyParent) {
     }
 }
 
+// Separation from the player — stops the enemy from overlapping/rendering on top of them
+if (instance_exists(oPlayer)) {
+    var playerSepRadius = 20; // roughly half the combined width of player+enemy sprites
+    
+    if (distToPlayer < playerSepRadius && distToPlayer > 0) {
+        var pushDir = point_direction(oPlayer.x, oPlayer.y, x, y);
+        var pushForce = (playerSepRadius - distToPlayer) / playerSepRadius;
+        
+        hsp += lengthdir_x(pushForce, pushDir) * mobSpeed * oGlobal.dt;
+        vsp += lengthdir_y(pushForce, pushDir) * mobSpeed * oGlobal.dt;
+    }
+}
+
 hsp += sepX * mobSpeed * oGlobal.dt;
 vsp += sepY * mobSpeed * oGlobal.dt;
 
 // Movement + collision — resolves each axis separately so the enemy can
 // slide along walls instead of stopping dead on diagonal input.
 moveWithTileCollision();
+
+// Hard separation from the player — guarantees no overlap regardless of movement speed
+var distToPlayerFinal = point_distance(x, y, oPlayer.x, oPlayer.y);
+var minSeparation = 20; // tune to match your sprite sizes
+if (distToPlayerFinal < minSeparation && distToPlayerFinal > 0) {
+    var awayDir = point_direction(oPlayer.x, oPlayer.y, x, y);
+    x = oPlayer.x + lengthdir_x(minSeparation, awayDir);
+    y = oPlayer.y + lengthdir_y(minSeparation, awayDir);
+}
 
