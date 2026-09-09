@@ -21,6 +21,8 @@ if (inRange && keyboard_check(vk_control)) {
         oPlayer.cold += coldAmount;
         oPlayer.cold = clamp(oPlayer.cold, 0, oPlayer.coldMax);
         
+        spawnFloatingText(x, y - 40, "+" + string(coldAmount), c_aqua);
+        
         isLit = false;
         image_index = 1;
         cooldownTimer = 0;
