@@ -18,7 +18,6 @@ draw_rectangle_color(panelX, panelY, panelX + panelW, panelY + panelH, c_white, 
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
-// --- Resume / Save & Exit buttons (gameplay mode only) ---
 var btnW = 200;
 var btnH = 40;
 var resumeX1 = panelX + (panelW/2) - (btnW/2);
@@ -31,34 +30,80 @@ var saveExitY1 = resumeY1 + 55;
 var saveExitX2 = resumeX2;
 var saveExitY2 = saveExitY1 + btnH;
 
-if (inGameMode) {
-    var resumeColor = resumeHovered ? c_yellow : c_white;
-    draw_set_color(resumeColor);
-    draw_rectangle_color(resumeX1, resumeY1, resumeX2, resumeY2, resumeColor, resumeColor, resumeColor, resumeColor, true);
-    draw_text((resumeX1+resumeX2)/2, (resumeY1+resumeY2)/2, "Resume");
-    
-    var saveExitColor = saveExitHovered ? c_yellow : c_white;
-    draw_set_color(saveExitColor);
-    draw_rectangle_color(saveExitX1, saveExitY1, saveExitX2, saveExitY2, saveExitColor, saveExitColor, saveExitColor, saveExitColor, true);
-    draw_text((saveExitX1+saveExitX2)/2, (saveExitY1+saveExitY2)/2, "Save & Exit");
-}
+var controlsBtnY1 = inGameMode ? (saveExitY2 + 15) : (panelY + 55);
+var controlsBtnY2 = controlsBtnY1 + 36;
+var controlsBtnX1 = panelX + (panelW/2) - (btnW/2);
+var controlsBtnX2 = controlsBtnX1 + btnW;
 
-// --- Volume slider ---
-draw_set_color(c_white);
-var volumeLabel = global.musicMuted ? "Volume: Muted" : ("Volume: " + string(round(global.musicVolume * 100)) + "%");
 var sliderX1 = panelX + 30;
 var sliderX2 = panelX + panelW - 30;
-var sliderY = inGameMode ? (saveExitY2 + 50) : (panelY + 100);
+var sliderY = controlsBtnY2 + 40;
 
-draw_text(panelX + panelW/2, sliderY - 30, volumeLabel);
+if (controlsOpen) {
+    // --- Controls sub-panel ---
+    draw_set_color(c_white);
+    draw_text(panelX + panelW/2, panelY + 30, "CONTROLS");
 
-draw_rectangle_color(sliderX1, sliderY - 4, sliderX2, sliderY + 4, c_gray, c_gray, c_gray, c_gray, false);
-var knobX = lerp(sliderX1, sliderX2, global.musicMuted ? 0 : global.musicVolume);
-draw_rectangle_color(sliderX1, sliderY - 4, knobX, sliderY + 4, c_white, c_white, c_white, c_white, false);
-draw_circle_color(knobX, sliderY, 8, c_white, c_white, false);
+    draw_set_halign(fa_left);
+    var rows = [
+        ["WASD", "Move"],
+        ["Left Click", "Attack / Mine / Chop"],
+        ["E", "Interact (talk)"],
+        ["Tab", "Open Inventory"],
+        ["Space", "Anchor Ability"],
+        ["Left Ctrl (Hold)", "Use cold lamp"],
+    ];
 
-draw_set_color(c_white);
-draw_text(panelX + panelW/2, panelY + panelH - 20, inGameMode ? "Left/Right: Volume   M: Mute   Esc: Resume" : "Left/Right: Volume   M: Mute   Esc: Close");
+    var rowY = panelY + 65;
+    for (var i = 0; i < array_length(rows); i++) {
+        draw_text(panelX + 30, rowY, rows[i][0]);
+        draw_text(panelX + 200, rowY, rows[i][1]);
+        rowY += 28;
+    }
+
+    var backBtnW = 100;
+    var backBtnH = 32;
+    var backBtnX1 = panelX + (panelW/2) - (backBtnW/2);
+    var backBtnY1 = panelY + panelH - 50;
+    var backBtnX2 = backBtnX1 + backBtnW;
+    var backBtnY2 = backBtnY1 + backBtnH;
+
+    var backColor = controlsBackHovered ? c_yellow : c_white;
+    draw_set_color(backColor);
+    draw_set_halign(fa_center);
+    draw_rectangle_color(backBtnX1, backBtnY1, backBtnX2, backBtnY2, backColor, backColor, backColor, backColor, true);
+    draw_text((backBtnX1+backBtnX2)/2, (backBtnY1+backBtnY2)/2, "Back");
+} else {
+    // --- Main options panel ---
+    if (inGameMode) {
+        var resumeColor = resumeHovered ? c_yellow : c_white;
+        draw_set_color(resumeColor);
+        draw_rectangle_color(resumeX1, resumeY1, resumeX2, resumeY2, resumeColor, resumeColor, resumeColor, resumeColor, true);
+        draw_text((resumeX1+resumeX2)/2, (resumeY1+resumeY2)/2, "Resume");
+
+        var saveExitColor = saveExitHovered ? c_yellow : c_white;
+        draw_set_color(saveExitColor);
+        draw_rectangle_color(saveExitX1, saveExitY1, saveExitX2, saveExitY2, saveExitColor, saveExitColor, saveExitColor, saveExitColor, true);
+        draw_text((saveExitX1+saveExitX2)/2, (saveExitY1+saveExitY2)/2, "Save & Exit");
+    }
+
+    var controlsColor = controlsHovered ? c_yellow : c_white;
+    draw_set_color(controlsColor);
+    draw_rectangle_color(controlsBtnX1, controlsBtnY1, controlsBtnX2, controlsBtnY2, controlsColor, controlsColor, controlsColor, controlsColor, true);
+    draw_text((controlsBtnX1+controlsBtnX2)/2, (controlsBtnY1+controlsBtnY2)/2, "Controls");
+
+    draw_set_color(c_white);
+    var volumeLabel = global.musicMuted ? "Volume: Muted" : ("Volume: " + string(round(global.musicVolume * 100)) + "%");
+    draw_text(panelX + panelW/2, sliderY - 30, volumeLabel);
+
+    draw_rectangle_color(sliderX1, sliderY - 4, sliderX2, sliderY + 4, c_gray, c_gray, c_gray, c_gray, false);
+    var knobX = lerp(sliderX1, sliderX2, global.musicMuted ? 0 : global.musicVolume);
+    draw_rectangle_color(sliderX1, sliderY - 4, knobX, sliderY + 4, c_white, c_white, c_white, c_white, false);
+    draw_circle_color(knobX, sliderY, 8, c_white, c_white, false);
+
+    draw_set_color(c_white);
+    draw_text(panelX + panelW/2, panelY + panelH - 20, inGameMode ? "Left/Right: Volume   M: Mute   Esc: Resume" : "Left/Right: Volume   M: Mute   Esc: Close");
+}
 
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

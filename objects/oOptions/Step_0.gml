@@ -21,7 +21,10 @@ var panelH = 320;
 var panelX = (guiW/2) - (panelW/2);
 var panelY = (guiH/2) - (panelH/2);
 
-// --- Resume / Save & Exit buttons ---
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
+
+// --- Resume / Save & Exit button positions ---
 var btnW = 200;
 var btnH = 40;
 var resumeX1 = panelX + (panelW/2) - (btnW/2);
@@ -34,64 +37,92 @@ var saveExitY1 = resumeY1 + 55;
 var saveExitX2 = resumeX2;
 var saveExitY2 = saveExitY1 + btnH;
 
-var mx = device_mouse_x_to_gui(0);
-var my = device_mouse_y_to_gui(0);
+// --- Controls button position (sits below Resume/Save&Exit, or near the top in menu mode) ---
+var controlsBtnY1 = inGameMode ? (saveExitY2 + 15) : (panelY + 55);
+var controlsBtnY2 = controlsBtnY1 + 36;
+var controlsBtnX1 = panelX + (panelW/2) - (btnW/2);
+var controlsBtnX2 = controlsBtnX1 + btnW;
 
-if (inGameMode) {
-    resumeHovered = point_in_rectangle(mx, my, resumeX1, resumeY1, resumeX2, resumeY2);
-    saveExitHovered = point_in_rectangle(mx, my, saveExitX1, saveExitY1, saveExitX2, saveExitY2);
-    
-    if (resumeHovered && mouse_check_button_pressed(mb_left)) {
-        playSfx(sndButtonClick);
-        closeOptionsPanel();
-    }
-    
-    if (saveExitHovered && mouse_check_button_pressed(mb_left)) {
-        playSfx(sndButtonClick);
-        if (SaveGameWrite()) {
-            game_restart();
-        }
-    }
-} else {
-    resumeHovered = false;
-    saveExitHovered = false;
-}
-
-// --- Volume slider ---
+// --- Volume slider position (pushed below whatever buttons are showing) ---
 var sliderX1 = panelX + 30;
 var sliderX2 = panelX + panelW - 30;
-var sliderY = inGameMode ? (saveExitY2 + 50) : (panelY + 100);
+var sliderY = controlsBtnY2 + 40;
 var sliderTouchPad = 10;
 
-if (mouse_check_button(mb_left) && point_in_rectangle(mx, my, sliderX1, sliderY - sliderTouchPad, sliderX2, sliderY + sliderTouchPad)) {
-    global.musicVolume = clamp((mx - sliderX1) / (sliderX2 - sliderX1), 0, 1);
-    global.musicMuted = false;
-    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
-        audio_sound_gain(global.currentMusicId, global.musicMuted ? 0 : global.musicVolume, 100);
-    }
-}
+if (controlsOpen) {
+    // --- Controls sub-panel: only the Back button / Escape do anything here ---
+    var backBtnW = 100;
+    var backBtnH = 32;
+    var backBtnX1 = panelX + (panelW/2) - (backBtnW/2);
+    var backBtnY1 = panelY + panelH - 50;
+    var backBtnX2 = backBtnX1 + backBtnW;
+    var backBtnY2 = backBtnY1 + backBtnH;
 
-if (keyboard_check_pressed(vk_left)) {
-    global.musicVolume = max(0, global.musicVolume - 0.1);
-    global.musicMuted = false;
-    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
-        audio_sound_gain(global.currentMusicId, global.musicVolume, 100);
-    }
-}
-if (keyboard_check_pressed(vk_right)) {
-    global.musicVolume = min(1, global.musicVolume + 0.1);
-    global.musicMuted = false;
-    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
-        audio_sound_gain(global.currentMusicId, global.musicVolume, 100);
-    }
-}
-if (keyboard_check_pressed(ord("M"))) {
-    global.musicMuted = !global.musicMuted;
-    if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
-        audio_sound_gain(global.currentMusicId, global.musicMuted ? 0 : global.musicVolume, 100);
-    }
-}
+    controlsBackHovered = point_in_rectangle(mx, my, backBtnX1, backBtnY1, backBtnX2, backBtnY2);
 
-if (keyboard_check_pressed(vk_escape)) {
-    closeOptionsPanel();
+    if ((controlsBackHovered && mouse_check_button_pressed(mb_left)) || keyboard_check_pressed(vk_escape)) {
+        playSfx(sndButtonClick);
+        controlsOpen = false;
+    }
+} else {
+    // --- Main options panel: Resume / Save & Exit / Controls / volume slider ---
+    if (inGameMode) {
+        resumeHovered = point_in_rectangle(mx, my, resumeX1, resumeY1, resumeX2, resumeY2);
+        saveExitHovered = point_in_rectangle(mx, my, saveExitX1, saveExitY1, saveExitX2, saveExitY2);
+
+        if (resumeHovered && mouse_check_button_pressed(mb_left)) {
+            playSfx(sndButtonClick);
+            closeOptionsPanel();
+        }
+
+        if (saveExitHovered && mouse_check_button_pressed(mb_left)) {
+            playSfx(sndButtonClick);
+            if (SaveGameWrite()) {
+                game_restart();
+            }
+        }
+    } else {
+        resumeHovered = false;
+        saveExitHovered = false;
+    }
+
+    controlsHovered = point_in_rectangle(mx, my, controlsBtnX1, controlsBtnY1, controlsBtnX2, controlsBtnY2);
+
+    if (controlsHovered && mouse_check_button_pressed(mb_left)) {
+        playSfx(sndButtonClick);
+        controlsOpen = true;
+    }
+
+    if (mouse_check_button(mb_left) && point_in_rectangle(mx, my, sliderX1, sliderY - sliderTouchPad, sliderX2, sliderY + sliderTouchPad)) {
+        global.musicVolume = clamp((mx - sliderX1) / (sliderX2 - sliderX1), 0, 1);
+        global.musicMuted = false;
+        if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+            audio_sound_gain(global.currentMusicId, global.musicMuted ? 0 : global.musicVolume, 100);
+        }
+    }
+
+    if (keyboard_check_pressed(vk_left)) {
+        global.musicVolume = max(0, global.musicVolume - 0.1);
+        global.musicMuted = false;
+        if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+            audio_sound_gain(global.currentMusicId, global.musicVolume, 100);
+        }
+    }
+    if (keyboard_check_pressed(vk_right)) {
+        global.musicVolume = min(1, global.musicVolume + 0.1);
+        global.musicMuted = false;
+        if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+            audio_sound_gain(global.currentMusicId, global.musicVolume, 100);
+        }
+    }
+    if (keyboard_check_pressed(ord("M"))) {
+        global.musicMuted = !global.musicMuted;
+        if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+            audio_sound_gain(global.currentMusicId, global.musicMuted ? 0 : global.musicVolume, 100);
+        }
+    }
+
+    if (keyboard_check_pressed(vk_escape)) {
+        closeOptionsPanel();
+    }
 }

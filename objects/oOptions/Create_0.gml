@@ -6,4 +6,8 @@ justOpened = false;
 backHovered = false;
 resumeHovered = false;
 saveExitHovered = false;
-inGameMode = false; // true = opened during gameplay (Resume/Save&Exit shown), false = opened from main menu (volume only)
+inGameMode = false;
+
+controlsOpen = false;
+controlsHovered = false;
+controlsBackHovered = false;
