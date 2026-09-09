@@ -13,3 +13,6 @@ questState = "idle"; // idle, showingComplete, slidingIn
 lastQuestKey = "";
 
 heartbeatTimer = 0;
+
+barPopTimer = 0;
+barPopDuration = 0.25;

@@ -67,8 +67,15 @@ if (heartbeatTimer > 0) {
     pulse = lub * 0.08; // max 8% size increase
 }
 
-var barWidth = baseBarWidth * (1 + pulse);
-var barHeight = baseBarHeight * (1 + pulse);
+var popScale = 0;
+if (barPopTimer > 0) {
+    var popT = barPopTimer / barPopDuration;
+    popScale = sin(popT * pi) * 0.15; // quick punch up to 15%, then back down
+}
+
+var barWidth = baseBarWidth * (1 + pulse + popScale);
+var barHeight = baseBarHeight * (1 + pulse + popScale);
+
 var barX = (guiW / 2) - (barWidth / 2);
 var barY = 20 - (barHeight - baseBarHeight) / 2;
 

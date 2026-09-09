@@ -50,3 +50,10 @@ if (instance_exists(oPlayer)) {
         heartbeatTimer = 0;
     }
 }
+
+if (barPopTimer > 0) {
+    barPopTimer += oGlobal.dt;
+    if (barPopTimer >= barPopDuration) {
+        barPopTimer = 0;
+    }
+}
