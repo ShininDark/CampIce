@@ -47,7 +47,9 @@ if (shopOpen) {
         var upW = panelW - 40;
         var upH = 110;
         
-        var canAffordFalo = true;
+        var canAffordFalo = hasItemAmount(global.itemOak, 3) && hasItemAmount(global.itemBirch, 3) && hasItemAmount(global.itemMaple, 3)
+        && hasItemAmount(global.itemCoal, 3) && hasItemAmount(global.itemGold, 3) && hasItemAmount(global.itemIron, 3)
+        && hasItemAmount(global.itemShard, 3);
         
         var faloCostLines = [
             "Cost:",
