@@ -29,6 +29,10 @@ attackDamage = 10;
 
 isDead = false;
 
+// flickering
+flickerTimer = 0;
+flickerDuration = 0.5;
+
 // Cache the collision tilemap so movement doesn't have to look it up every frame.
 // If the room has no "tile_collide" layer, movement should still work without crashing.
 collTilemap = -1;

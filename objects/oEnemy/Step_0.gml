@@ -64,6 +64,7 @@ switch (enemyState) {
         if (attackTimer >= attackCooldown) {
             oPlayer.cold -= attackDamage;
             oPlayer.cold = clamp(oPlayer.cold, 0, oPlayer.coldMax);
+            oPlayer.flickerTimer = oPlayer.flickerDuration;
             attackTimer = 0;
         }
         break;

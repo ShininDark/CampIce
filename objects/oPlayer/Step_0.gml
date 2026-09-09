@@ -18,6 +18,11 @@ if (isDead) {
     exit; // skip movement/attack/mining while dead
 }
 
+if (flickerTimer > 0) {
+    flickerTimer -= oGlobal.dt;
+    if (flickerTimer < 0) flickerTimer = 0;
+}
+
 if (!global.coldLampHeadsUpShown && cold <= 60) {
     show_debug_message("Triggering cutscene, flag was: " + string(global.coldLampHeadsUpShown));
     global.coldLampHeadsUpShown = true;
