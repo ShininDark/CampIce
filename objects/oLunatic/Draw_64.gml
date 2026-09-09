@@ -47,9 +47,7 @@ if (shopOpen) {
         var upW = panelW - 40;
         var upH = 110;
         
-        var canAffordFalo = hasItemAmount(global.itemOak, 3) && hasItemAmount(global.itemBirch, 3) && hasItemAmount(global.itemMaple, 3)
-        && hasItemAmount(global.itemCoal, 3) && hasItemAmount(global.itemGold, 3) && hasItemAmount(global.itemIron, 3)
-        && hasItemAmount(global.itemShard, 3);
+        var canAffordFalo = true;
         
         var faloCostLines = [
             "Cost:",
@@ -70,16 +68,42 @@ if (shopOpen) {
             faloBought = true;
             
             var sceneArr = [
+                // 1. EXISTING sEnd1
                 { image: sEnd1, lines: ["You hand over the last of your supplies."] },
+
+                // 2. EXISTING sEnd2
                 { image: sEnd2, lines: ["Falo starts behaving out of the ordinary..."] },
-                { image: sEnd3, lines: ["Falo takes over your mind and now you take upon the role of lunatic"] }
+
+                // 3. EXISTING sEnd3
+                { image: sEnd3, lines: ["Falo takes over your mind, and everything goes silent."] },
+
+                // 4. NEW sEndCampIce
+                { image: sEndCampIce, lines: ["For a moment, everything is quiet."] },
+
+                // 5. NEW sEndCampIce
+                { image: sEndCampIce, lines: ["The place you fought so hard to survive is still standing."] },
+
+                // 6. NEW sEndLunatic
+                { image: sEndLunatic, lines: ["Lunatic: You came here looking for a way out."] },
+
+                // 7. NEW sEndLunatic
+                { image: sEndLunatic, lines: ["Lunatic: But CampIce had other plans."] },
+
+                // 8. NEW sEndLunatic
+                { image: sEndLunatic, lines: ["Lunatic: Now... it's your turn to stay."] },
+
+                // 9. NEW sEndCampIce
+                { image: sEndCampIce, lines: ["You survived CampIce."] },
+
+                // 10. NEW sEndBlack
+                { image: sEndBlack, lines: ["CAMPICE\n\nTHE END"] }
             ];
+            
             startSceneSequence(sceneArr, function() {
                 game_restart();
             });
         }
 
-        
         var faloScale = 2.5;
         var faloSpriteX = contentX + upW - 40;
         var faloSpriteY = contentY + upH/2;

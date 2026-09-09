@@ -28,7 +28,6 @@ if (fadeState == "fadingIn") {
     exit;
 }
 
-
 // --- Handle final fade-out (end of whole sequence) ---
 if (fadeState == "fadingOutFinal") {
     fadeAlpha += fadeSpeed;
@@ -42,16 +41,36 @@ if (fadeState == "fadingOutFinal") {
             cb();
         }
     }
+    exit;
 }
 
 // --- Typewriter progression (only when not mid-fade) ---
 var currentScene = scenes[sceneIndex];
 
-if (lineIndex >= array_length(currentScene.lines)) exit; // mid-transition, nothing to type
+if (lineIndex >= array_length(currentScene.lines)) exit;
 
 var currentLine = currentScene.lines[lineIndex];
 var lineLength = string_length(currentLine);
 var isFullyTyped = typedChars >= lineLength;
+
+// Automatic holding logic ONLY for final sEndBlack screen
+if (currentScene.image == sEndBlack) {
+    if (!variable_instance_exists(id, "endScreenHoldTimer")) {
+        endScreenHoldTimer = 0;
+    }
+    
+    endScreenHoldTimer += delta_time / 1000000;
+    
+    // Auto-advance after roughly 3 seconds
+    if (endScreenHoldTimer >= 3.0) {
+        endScreenHoldTimer = 0;
+        fadeState = "fadingOutFinal";
+        fadeAlpha = 0;
+    }
+    exit; // Skip key-press checks for final title screen
+} else {
+    endScreenHoldTimer = 0;
+}
 
 if (!isFullyTyped) {
     typeTimer += delta_time / 1000000;
@@ -59,12 +78,11 @@ if (!isFullyTyped) {
     typedChars = min(charsToShow, lineLength);
 }
 
+// Player input to continue dialogue
 if (keyboard_check_pressed(ord("E")) || mouse_check_button_pressed(mb_left)) {
     if (!isFullyTyped) {
-        // First press: skip straight to the full line
         typedChars = lineLength;
     } else {
-        // Line already fully shown: advance
         lineIndex++;
         typedChars = 0;
         typeTimer = 0;
