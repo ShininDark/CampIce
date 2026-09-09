@@ -54,36 +54,86 @@ if (instance_exists(oPlayer)) {
     }
 }
 
-// --- Cold meter bar ---
-var baseBarWidth = 200;
-var baseBarHeight = 20;
+// --- Cold meter ---
+var baseBarWidth = 220;
+var baseBarHeight = 26;
 
-// Heartbeat pulse: two quick beats then a rest, like a real pulse
-var beatPeriod = 1.0; // seconds per full beat cycle
+// Heartbeat pulse
+var beatPeriod = 1.0;
 var beatPhase = (heartbeatTimer mod beatPeriod) / beatPeriod;
 var pulse = 0;
 if (heartbeatTimer > 0) {
     var lub = max(0, sin(beatPhase * pi * 6)) * (beatPhase < 0.35);
-    pulse = lub * 0.08; // max 8% size increase
+    pulse = lub * 0.08;
 }
 
 var popScale = 0;
 if (barPopTimer > 0) {
     var popT = barPopTimer / barPopDuration;
-    popScale = sin(popT * pi) * 0.15; // quick punch up to 15%, then back down
+    popScale = sin(popT * pi) * 0.15;
 }
 
 var barWidth = baseBarWidth * (1 + pulse + popScale);
 var barHeight = baseBarHeight * (1 + pulse + popScale);
-
 var barX = (guiW / 2) - (barWidth / 2);
-var barY = 20 - (barHeight - baseBarHeight) / 2;
+var barY = 22 - (barHeight - baseBarHeight) / 2;
 
-draw_rectangle_color(barX, barY, barX + barWidth, barY + barHeight, c_black, c_black, c_black, c_black, false);
-var coldBarPct = oPlayer.cold / oPlayer.coldMax;
-var pulseColor = pulse > 0.02 ? c_red : c_aqua;
-draw_rectangle_color(barX, barY, barX + (barWidth * coldBarPct), barY + barHeight, c_blue, pulseColor, c_blue, pulseColor, false);
+var coldBarPct = clamp(oPlayer.cold / oPlayer.coldMax, 0, 1);
+var isCritical = (oPlayer.cold / oPlayer.coldMax) < 0.3;
 
+// Blend toward red as cold drops below the critical threshold, without losing the blue entirely
+var dangerBlend = isCritical ? clamp(1 - (coldBarPct / 0.3), 0, 1) : 0;
+
+// Label
+draw_set_font(-1); // ensure default font, then simulate bold via double-draw
+draw_set_color(c_white);
+draw_set_halign(fa_center);
+draw_set_valign(fa_bottom);
+draw_text(barX + barWidth/2 + 1, barY, "COLD");
+draw_text(barX + barWidth/2 - 1, barY, "COLD"); // cheap bold effect without a bold font asset
+draw_text(barX + barWidth/2, barY, "COLD");
+
+// Drop shadow
+draw_set_alpha(0.35);
+draw_roundrect_color(barX - 2, barY + 3, barX + barWidth + 2, barY + barHeight + 5, c_black, c_black, false);
+draw_set_alpha(1);
+
+// Outer frame — thin ring, filled shape with the trough drawn inset on top
+var frameColor = merge_color(c_white, c_red, dangerBlend);
+var frameThickness = 1.5;
+draw_roundrect_color(barX - frameThickness, barY - frameThickness, barX + barWidth + frameThickness, barY + barHeight + frameThickness, frameColor, frameColor, false);
+
+// Trough (empty background) — drawn on top of the frame, inset by frameThickness, leaving a thin visible ring
+var troughColor = make_color_rgb(18, 28, 46);
+draw_roundrect_color(barX, barY, barX + barWidth, barY + barHeight, troughColor, troughColor, false);
+
+// Fill (gradient deep blue -> icy cyan), rounded ends, min width so the cap doesn't collapse
+var fillWidth = max(barHeight * 0.6, barWidth * coldBarPct);
+if (coldBarPct > 0) {
+    
+    var coldDeep = c_aqua;
+    var coldBright = c_blue;
+    var dangerDeep = make_color_rgb(90, 20, 20);
+    var dangerBright = make_color_rgb(170, 50, 40);
+    
+    var fillDeep = merge_color(coldDeep, dangerDeep, dangerBlend);
+    var fillBright = merge_color(coldBright, dangerBright, dangerBlend);
+    draw_roundrect_color(barX, barY, barX + fillWidth, barY + barHeight, fillDeep, fillBright, false);
+    
+    // Glossy highlight along the top third of the fill
+    draw_set_alpha(0.12);
+    draw_roundrect_color(barX + 2, barY + 2, barX + fillWidth - 2, barY + barHeight * 0.45, c_white, c_white, false);
+    draw_set_alpha(1);
+}
+
+// Critical-zone marker at 30%
+var markerX = barX + barWidth * 0.3;
+draw_set_alpha(0.8);
+draw_line_width_color(markerX, barY - 1, markerX, barY + barHeight + 1, 2, c_white, c_white);
+draw_set_alpha(1);
+
+
+// Value label
 var labelText = string(round(oPlayer.cold)) + "/" + string(oPlayer.coldMax);
 draw_set_color(c_white);
 draw_set_halign(fa_center);
