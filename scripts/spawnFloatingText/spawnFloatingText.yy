@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"spawnFloatingText",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"spawnFloatingText",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

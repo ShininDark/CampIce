@@ -109,6 +109,7 @@ if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMin
         if (mineTimer >= mineInterval) {
             nearestMineral.mineralHealth--;
             show_debug_message("Mineral Health = " + string(nearestMineral.mineralHealth));
+            spawnFloatingText(nearestMineral.x, nearestMineral.y - 20, "-1", c_white);
             mineTimer = 0;
             
             if (nearestMineral.mineralHealth <= 0) {
@@ -152,6 +153,7 @@ if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) <
         if (chopTimer >= chopInterval) {
             nearestTree.treeHealth--;
             show_debug_message("Tree Health = " + string(nearestTree.treeHealth));
+            spawnFloatingText(nearestTree.x, nearestTree.y - 20, "-1", c_white);
             chopTimer = 0;
             
             if (nearestTree.treeHealth <= 0) {
