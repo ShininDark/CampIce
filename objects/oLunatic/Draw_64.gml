@@ -67,6 +67,8 @@ if (shopOpen) {
             removeItemAmount(global.itemShard, 3);
             faloBought = true;
             
+            playMusic(sndMenuMusic);
+            
             var sceneArr = [
                 // 1. EXISTING sEnd1
                 { image: sEnd1, lines: ["You hand over the last of your supplies."] },
