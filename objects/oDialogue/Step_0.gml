@@ -23,15 +23,19 @@ if (active) {
             typeTimer = 0;
             
             if (lineIndex >= array_length(lines)) {
-                active = false;
+            active = false;
+            
+            // Only unpause here if no cutscene is still driving the pause.
+            if (!instance_exists(oCutscene) || !oCutscene.active) {
                 global.gamePaused = false;
-                
-                var cb = onComplete;
-                onComplete = noone;
-                if (cb != noone) {
-                    cb();
-                }
             }
+            
+            var cb = onComplete;
+            onComplete = noone;
+            if (cb != noone) {
+                cb();
+            }
+        }
         }
     }
 }
