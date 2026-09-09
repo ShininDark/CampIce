@@ -21,11 +21,13 @@ prevChopTarget = noone;
 // player state
 playerState = "idle";  // idle, walk, attack, dead
 facingRight = true;
+wasInteracting = false;
 
 attackCooldown = 1.0;
 attackTimer = attackCooldown; // ready to attack immediately
 attackRange = 32;
 attackDamage = 10;
+attackAnimPlaying = false;
 
 isDead = false;
 

@@ -48,11 +48,15 @@ image_xscale = facingRight ? 1 : -1;
 // --- Attack timer ---
 attackTimer += oGlobal.dt;
 
-// --- Attack trigger ---
 if (mouse_check_button_pressed(mb_left) && attackTimer >= attackCooldown) {
     playSfx(sndSword);
     playerState = "attack";
     attackTimer = 0;
+    attackAnimPlaying = true;
+    
+    sprite_index = sPlayerAttack;
+    image_index = 0;
+    image_speed = 1;
     
     var target = instance_nearest(x, y, oEnemy);
     if (target != noone && point_distance(x, y, target.x, target.y) <= attackRange) {
@@ -64,10 +68,12 @@ if (mouse_check_button_pressed(mb_left) && attackTimer >= attackCooldown) {
 var moveLen = point_distance(0,0,hMove,vMove);
 var isMoving = moveLen > 0;
 
-if (playerState == "attack") {
+if (playerState == "attack" && attackAnimPlaying) {
     sprite_index = sPlayerAttack;
-    // stay in attack state until timer passes a short "swing duration"
-    if (attackTimer >= 0.3) { // swing visual duration, tweak to taste
+    
+    // Check if the animation has played through to its last frame
+    if (image_index >= image_number - 1) {
+        attackAnimPlaying = false;
         playerState = isMoving ? "walk" : "idle";
     }
 } else {
@@ -187,6 +193,20 @@ if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) <
 }
 
 prevChopTarget = nearestTree;
+
+var isInteracting = (nearestMineral != noone && instance_exists(nearestMineral) && nearestMineral.isMining) 
+                  || (nearestTree != noone && instance_exists(nearestTree) && nearestTree.isMining);
+
+if (playerState != "attack" && isInteracting) {
+    if (!wasInteracting) {
+        image_index = 0;
+    }
+    playerState = "interact";
+    sprite_index = sPlayerAttack;
+    image_speed = 1;
+}
+
+wasInteracting = isInteracting;
 
 // --- LIGHTNING TETHER ANCHOR TRIGGER & COOLDOWN ---
 if (variable_instance_exists(id, "anchorCooldown") && anchorCooldown > 0) {
