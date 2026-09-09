@@ -55,13 +55,28 @@ if (instance_exists(oPlayer)) {
 }
 
 // --- Cold meter bar ---
-var barWidth = 200;
-var barHeight = 20;
+var baseBarWidth = 200;
+var baseBarHeight = 20;
+
+// Heartbeat pulse: two quick beats then a rest, like a real pulse
+var beatPeriod = 1.0; // seconds per full beat cycle
+var beatPhase = (heartbeatTimer mod beatPeriod) / beatPeriod;
+var pulse = 0;
+if (heartbeatTimer > 0) {
+    var lub = max(0, sin(beatPhase * pi * 6)) * (beatPhase < 0.35);
+    pulse = lub * 0.08; // max 8% size increase
+}
+
+var barWidth = baseBarWidth * (1 + pulse);
+var barHeight = baseBarHeight * (1 + pulse);
 var barX = (guiW / 2) - (barWidth / 2);
-var barY = 20;
+var barY = 20 - (barHeight - baseBarHeight) / 2;
+
 draw_rectangle_color(barX, barY, barX + barWidth, barY + barHeight, c_black, c_black, c_black, c_black, false);
 var coldBarPct = oPlayer.cold / oPlayer.coldMax;
-draw_rectangle_color(barX, barY, barX + (barWidth * coldBarPct), barY + barHeight, c_blue, c_aqua, c_blue, c_aqua, false);
+var pulseColor = pulse > 0.02 ? c_red : c_aqua;
+draw_rectangle_color(barX, barY, barX + (barWidth * coldBarPct), barY + barHeight, c_blue, pulseColor, c_blue, pulseColor, false);
+
 var labelText = string(round(oPlayer.cold)) + "/" + string(oPlayer.coldMax);
 draw_set_color(c_white);
 draw_set_halign(fa_center);

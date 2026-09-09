@@ -11,3 +11,5 @@ questSlideDuration = 0.3; // how long the slide-in animation takes
 questState = "idle"; // idle, showingComplete, slidingIn
 
 lastQuestKey = "";
+
+heartbeatTimer = 0;

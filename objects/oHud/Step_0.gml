@@ -41,3 +41,12 @@ switch (questState) {
         }
         break;
 }
+
+if (instance_exists(oPlayer)) {
+    var coldPct = oPlayer.cold / oPlayer.coldMax;
+    if (coldPct < 0.3) { // same danger threshold feel, tune as needed
+        heartbeatTimer += oGlobal.dt;
+    } else {
+        heartbeatTimer = 0;
+    }
+}
