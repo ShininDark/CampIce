@@ -24,10 +24,6 @@ if (!inRange && shopOpen) {
     shopOpen = false; // walking away closes the shop
 }
 
-if (global.questStage == 100 &&
-    global.questOreCount >= global.questOreTarget &&
-    global.questLogCount >= global.questLogTarget &&
-    global.questKillCount >= global.questKillTarget &&
-    global.questUpgradesBought >= global.questUpgradesTarget) {
+if (global.questStage == 100 && global.questUpgradesBought >= global.questUpgradesTarget) {
     global.questStage = 200;
 }

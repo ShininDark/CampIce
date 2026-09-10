@@ -47,28 +47,23 @@ if (shopOpen) {
         var upW = panelW - 40;
         var upH = 110;
         
-        /* var canAffordFalo = hasItemAmount(global.itemOak, 3) && hasItemAmount(global.itemBirch, 3) && hasItemAmount(global.itemMaple, 3)
-        && hasItemAmount(global.itemCoal, 3) && hasItemAmount(global.itemGold, 3) && hasItemAmount(global.itemIron, 3)
-        && hasItemAmount(global.itemShard, 3);  */
+        var woodTypes = [global.itemOak, global.itemBirch, global.itemMaple];
+        var oreTypes = [global.itemCoal, global.itemGold, global.itemIron];
         
-        var canAffordFalo = true;
+        var canAffordFalo = hasAnyOf(woodTypes, 1) && hasAnyOf(oreTypes, 1) && hasItemAmount(global.itemShard, 1);
         
         var faloCostLines = [
             "Cost:",
-            "3 Maple, 3 Birch, 3 Oak",
-            "3 Gold, 3 Iron, 3 Coal",
-            "3 Enemy Shards"
+            "1 Wood (any type)",
+            "1 Ore (any type)",
+            "1 Enemy Shard"
         ];
         
         if (drawUpgradeBlock(contentX, contentY, upW, upH, "Falo", faloCostLines, canAffordFalo, faloBought, mx, my, clicked)) {
             playSfx(sndPurchase);
-            removeItemAmount(global.itemOak, 3);
-            removeItemAmount(global.itemBirch, 3);
-            removeItemAmount(global.itemMaple, 3);
-            removeItemAmount(global.itemCoal, 3);
-            removeItemAmount(global.itemGold, 3);
-            removeItemAmount(global.itemIron, 3);
-            removeItemAmount(global.itemShard, 3);
+            removeAnyOf(woodTypes, 1);
+            removeAnyOf(oreTypes, 1);
+            removeItemAmount(global.itemShard, 1);
             faloBought = true;
             
             playMusic(sndMenuMusic);
@@ -123,13 +118,12 @@ if (shopOpen) {
         var upY = contentY;
         
         // --- Sharper Axe ---
-        var canAffordAxe = hasItemAmount(global.itemOak, 1) && hasItemAmount(global.itemBirch, 1) && hasItemAmount(global.itemMaple, 1);
-        var axeCostLines = ["Cost: 1 oak, 1 birch, 1 maple"];
+        var woodTypesUp = [global.itemOak, global.itemBirch, global.itemMaple];
+        var canAffordAxe = hasAnyOf(woodTypesUp, 1);
+        var axeCostLines = ["Cost: 1 wood (any type)"];
         if (drawUpgradeBlock(contentX, upY, upW, upH, "Sharper Axe (-2 tree hits)", axeCostLines, canAffordAxe, axeUpgradeBought, mx, my, clicked)) {
             playSfx(sndPurchase);
-            removeItemAmount(global.itemOak, 1);
-            removeItemAmount(global.itemBirch, 1);
-            removeItemAmount(global.itemMaple, 1);
+            removeAnyOf(woodTypesUp, 1);
             with (oTree) {
                 treeHealth = max(1, treeHealth - 2);
                 treeHealthMax = max(1, treeHealthMax - 2);
@@ -142,13 +136,13 @@ if (shopOpen) {
         upY += upH + spacing;
         
         // --- Sharper Pickaxe ---
-        var canAffordPickaxe = hasItemAmount(global.itemCoal, 1) && hasItemAmount(global.itemGold, 1) && hasItemAmount(global.itemIron, 1);
-        var pickaxeCostLines = ["Cost: 1 coal, 1 gold, 1 iron"];
+        var oreTypesUp = [global.itemCoal, global.itemGold, global.itemIron];
+        var canAffordPickaxe = hasAnyOf(oreTypesUp, 1);
+        var pickaxeCostLines = ["Cost: 1 ore (any type)"];
+        
         if (drawUpgradeBlock(contentX, upY, upW, upH, "Sharper Pickaxe (-2 ore hits)", pickaxeCostLines, canAffordPickaxe, pickaxeUpgradeBought, mx, my, clicked)) {
             playSfx(sndPurchase);
-            removeItemAmount(global.itemCoal, 1);
-            removeItemAmount(global.itemGold, 1);
-            removeItemAmount(global.itemIron, 1);
+            removeAnyOf(oreTypesUp, 1);
             with (oMineral) {
                 mineralHealth = max(1, mineralHealth - 2);
                 mineralHealthMax = max(1, mineralHealthMax - 2);
