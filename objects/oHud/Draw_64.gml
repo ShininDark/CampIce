@@ -176,6 +176,23 @@ if (instance_exists(oPlayer) && oPlayer.isDead) {
     draw_set_valign(fa_top);
 }
 
+if (announceState == "completeAnim") {
+    draw_set_color(c_lime);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text_transformed(guiW/2, 100, "Objective Completed", max(0.01, announceScale) * 2, max(0.01, announceScale) * 2, 0);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+}
+else if (announceState == "nextAnim") {
+    draw_set_color(c_white);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text_transformed(guiW/2, 100, "Next: " + announceText, max(0.01, announceScale) * 2, max(0.01, announceScale) * 2, 0);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+}
+
 // --- Fade to black on restart ---
 if (fadeState == "fadingOut") {
     draw_set_alpha(fadeAlpha);

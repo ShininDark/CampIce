@@ -17,4 +17,10 @@ heartbeatTimer = 0;
 barPopTimer = 0;
 barPopDuration = 0.25;
 
+announceState = "hidden"; // hidden, completeAnim, nextAnim
+announceTimer = 0;
+announceScale = 0;
+announceText = "";
+lastAnnouncedKey = "";
+
 heartbeatAudioPlaying = false;
