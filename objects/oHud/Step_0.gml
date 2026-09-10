@@ -44,10 +44,21 @@ switch (questState) {
 
 if (instance_exists(oPlayer)) {
     var coldPct = oPlayer.cold / oPlayer.coldMax;
-    if (coldPct < 0.3) { // same danger threshold feel, tune as needed
+    
+    if (coldPct < 0.3) {
         heartbeatTimer += oGlobal.dt;
+        
+        if (!heartbeatAudioPlaying) {
+            heartbeatAudioPlaying = true;
+            playMusic(sndHeartbeat, true);
+        }
     } else {
         heartbeatTimer = 0;
+        
+        if (heartbeatAudioPlaying) {
+            heartbeatAudioPlaying = false;
+            playMusic(sndMainMusic, true);
+        }
     }
 }
 

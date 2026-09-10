@@ -16,3 +16,5 @@ heartbeatTimer = 0;
 
 barPopTimer = 0;
 barPopDuration = 0.25;
+
+heartbeatAudioPlaying = false;
