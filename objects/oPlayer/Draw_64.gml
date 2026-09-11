@@ -5,5 +5,7 @@ if (anchorCooldown > 0 && (!instance_exists(oScenes) || !oScenes.active)) {
     draw_set_color(c_yellow);
     draw_set_halign(fa_right);
     draw_text(guiW - 20, 20, text);
+    
+    // Reset alignment back to left so it doesn't break other UI elements
     draw_set_halign(fa_left);
 }

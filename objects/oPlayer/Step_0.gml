@@ -10,12 +10,11 @@ if (!isDead && cold <= 0) {
 }
 
 if (isDead) {
-    // freeze the death animation on its last frame instead of looping
     if (image_index >= image_number - 1) {
         image_index = image_number - 1;
         image_speed = 0;
     }
-    exit; // skip movement/attack/mining while dead
+    exit;
 }
 
 if (flickerTimer > 0) {
@@ -27,10 +26,6 @@ if (!global.coldLampHeadsUpShown && cold <= 60) {
     show_debug_message("Triggering cutscene, flag was: " + string(global.coldLampHeadsUpShown));
     global.coldLampHeadsUpShown = true;
     startColdLampCutscene();
-}
-
-if (global.gamePaused) {
-    exit;
 }
 
 if (global.gamePaused) {
@@ -64,14 +59,12 @@ if (mouse_check_button_pressed(mb_left) && attackTimer >= attackCooldown) {
     }
 }
 
-// --- State resolution (movement vs attack vs idle) ---
-var moveLen = point_distance(0,0,hMove,vMove);
+// --- State resolution ---
+var moveLen = point_distance(0, 0, hMove, vMove);
 var isMoving = moveLen > 0;
 
 if (playerState == "attack" && attackAnimPlaying) {
     sprite_index = sPlayerAttack;
-    
-    // Check if the animation has played through to its last frame
     if (image_index >= image_number - 1) {
         attackAnimPlaying = false;
         playerState = isMoving ? "walk" : "idle";
@@ -81,8 +74,8 @@ if (playerState == "attack" && attackAnimPlaying) {
     sprite_index = (playerState == "walk") ? sPlayerWalk : sPlayerIdle;
 }
 
-// Player movement
-if (moveLen > 0){
+// Movement
+if (moveLen > 0) {
     hMove /= moveLen;
     vMove /= moveLen;
 }
@@ -90,30 +83,27 @@ if (moveLen > 0){
 hsp = hMove * playerSpeed * oGlobal.dt;
 vsp = vMove * playerSpeed * oGlobal.dt;
 
-// Movement + collision — resolves each axis separately so the player can
-// slide along walls instead of stopping dead on diagonal input.
 moveWithTileCollision();
 
-// Campice
+// Campice warmth logic
 var distToIce = point_distance(x, y, oCampice.x, oCampice.y);
 
 if (distToIce < coolRadius) {
     cold += coldRegen * oGlobal.dt;
-}
-else{
+} else {
     cold -= coldDrain * oGlobal.dt;
 }
 
 cold = clamp(cold, 0, coldMax);
 
-// mining ores
+// --- Mining Ores ---
 nearestMineral = instance_nearest(x, y, oMineral);
 if (prevMiningTarget != noone && instance_exists(prevMiningTarget) && prevMiningTarget != nearestMineral) {
     prevMiningTarget.isMining = false;
 }
 
-if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMineral.y) < 32){
-    if (mouse_check_button(mb_left)){
+if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMineral.y) < 32) {
+    if (mouse_check_button(mb_left)) {
         nearestMineral.isMining = true;
         mineTimer += oGlobal.dt;
         
@@ -141,8 +131,7 @@ if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMin
                 }
             }
         }
-    }
-    else {
+    } else {
         nearestMineral.isMining = false;
         mineTimer = 0;
     }
@@ -150,14 +139,14 @@ if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMin
 
 prevMiningTarget = nearestMineral;
 
-// chopping trees
+// --- Chopping Trees ---
 nearestTree = instance_nearest(x, y, oTree);
 if (prevChopTarget != noone && instance_exists(prevChopTarget) && prevChopTarget != nearestTree) {
     prevChopTarget.isMining = false;
 }
 
-if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) < 32){
-    if (mouse_check_button(mb_left)){
+if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) < 32) {
+    if (mouse_check_button(mb_left)) {
         nearestTree.isMining = true;
         chopTimer += oGlobal.dt;
         
@@ -185,8 +174,7 @@ if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) <
                 }
             }
         }
-    }
-    else {
+    } else {
         nearestTree.isMining = false;
         chopTimer = 0;
     }
@@ -208,23 +196,25 @@ if (playerState != "attack" && isInteracting) {
 
 wasInteracting = isInteracting;
 
-// --- LIGHTNING TETHER ANCHOR TRIGGER & COOLDOWN ---
+// --- ANCHOR COOLDOWN & TRIGGER ---
+// Drain 40s cooldown timer using delta time
 if (variable_instance_exists(id, "anchorCooldown") && anchorCooldown > 0) {
     anchorCooldown -= oGlobal.dt;
+    if (anchorCooldown < 0) anchorCooldown = 0;
 }
 
+// Space Press Logic
 if (keyboard_check_pressed(vk_space)) {
     if (!instance_exists(oAnchor)) {
-        // Only spawn if off cooldown
+        // First Press: Spawn Anchor at mouse position if off cooldown
         if (anchorCooldown <= 0) {
             instance_create_layer(mouse_x, mouse_y, "Instances", oAnchor);
         }
     } else {
-        // Trigger pull if anchor is planted, then set 60s (1 min) cooldown
+        // Second Press: Trigger pull state
         with (oAnchor) {
-            if (state == "planted") {
+            if (state == "attached" || state == "planted") {
                 state = "pulling";
-                other.anchorCooldown = 60; // 60-second cooldown
             }
         }
     }

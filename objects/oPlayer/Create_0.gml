@@ -56,3 +56,4 @@ if (variable_global_exists("pendingLoad") && is_struct(global.pendingLoad) && gl
     cold = global.pendingLoad.playerCold;
     attackDamage = global.pendingLoad.playerAttackDamage;
 }
+
