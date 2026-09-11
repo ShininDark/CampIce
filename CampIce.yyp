@@ -77,6 +77,7 @@
     {"id":{"name":"tileCollision","path":"scripts/tileCollision/tileCollision.yy",},},
     {"id":{"name":"shFlash","path":"shaders/shFlash/shFlash.yy",},},
     {"id":{"name":"sndButtonClick","path":"sounds/sndButtonClick/sndButtonClick.yy",},},
+    {"id":{"name":"sndEnemySlam","path":"sounds/sndEnemySlam/sndEnemySlam.yy",},},
     {"id":{"name":"sndHeartbeat","path":"sounds/sndHeartbeat/sndHeartbeat.yy",},},
     {"id":{"name":"sndItemPickup","path":"sounds/sndItemPickup/sndItemPickup.yy",},},
     {"id":{"name":"sndMainMusic","path":"sounds/sndMainMusic/sndMainMusic.yy",},},
