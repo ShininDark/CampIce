@@ -64,3 +64,20 @@ function drawUpgradeBlock(bx, by, bw, bh, title, costLines, canAfford, purchased
     
     return (!purchased && canAfford && hovered && clicked);
 }
+
+function hasAnyOf(itemDefs, amount) {
+    for (var i = 0; i < array_length(itemDefs); i++) {
+        if (hasItemAmount(itemDefs[i], amount)) return true;
+    }
+    return false;
+}
+
+function removeAnyOf(itemDefs, amount) {
+    for (var i = 0; i < array_length(itemDefs); i++) {
+        if (hasItemAmount(itemDefs[i], amount)) {
+            removeItemAmount(itemDefs[i], amount);
+            return true;
+        }
+    }
+    return false;
+}

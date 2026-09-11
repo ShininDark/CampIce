@@ -1,4 +1,4 @@
-if (anchorCooldown > 0) {
+if (anchorCooldown > 0 && (!instance_exists(oScenes) || !oScenes.active)) {
     var guiW = display_get_gui_width();
     var text = "Anchor Cooldown: " + string(ceil(anchorCooldown)) + "s";
     
