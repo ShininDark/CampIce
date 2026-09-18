@@ -31,6 +31,9 @@ attackRange = 32;
 attackDamage = 10;
 attackAnimPlaying = false;
 
+anchorCooldown = 0;
+isAnchorAiming = false;
+
 isDead = false;
 
 // flickering

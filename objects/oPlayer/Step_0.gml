@@ -51,7 +51,7 @@ if (os_type == os_android || os_type == os_ios) {
     attackPressed = global.touchAttackPressed;
 }
 
-if (attackPressed && attackTimer >= attackCooldown) {
+if (attackPressed && !isAnchorAiming && attackTimer >= attackCooldown) {
     playSfx(sndSword);
     playerState = "attack";
     attackTimer = 0;
@@ -223,19 +223,26 @@ if (variable_instance_exists(id, "anchorCooldown") && anchorCooldown > 0) {
     if (anchorCooldown < 0) anchorCooldown = 0;
 }
 
-// Space Press Logic
+// Anchor ability button
 if (keyboard_check_pressed(vk_space) || global.touchAnchorPressed) {
-    if (!instance_exists(oAnchor)) {
-        // First Press: Spawn Anchor at mouse position if off cooldown
-        if (anchorCooldown <= 0) {
-            instance_create_layer(mouse_x, mouse_y, "Instances", oAnchor);
-        }
-    } else {
-        // Second Press: Trigger pull state
+    if (instance_exists(oAnchor)) {
+        // Anchor already placed: this press triggers the pull
         with (oAnchor) {
             if (state == "attached" || state == "planted") {
                 state = "pulling";
             }
         }
+    } else if (isAnchorAiming) {
+        // Pressed again mid-aim: cancel targeting
+        isAnchorAiming = false;
+    } else if (anchorCooldown <= 0) {
+        // First press: enter aiming mode, don't place yet
+        isAnchorAiming = true;
     }
+}
+
+// While aiming, a click/tap places the anchor there and exits aim mode
+if (isAnchorAiming && mouse_check_button_pressed(mb_left)) {
+    isAnchorAiming = false;
+    instance_create_layer(mouse_x, mouse_y, "Instances", oAnchor);
 }
