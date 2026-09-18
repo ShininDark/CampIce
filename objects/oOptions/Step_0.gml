@@ -84,6 +84,13 @@ if (controlsOpen) {
     }
 } else {
     // --- Main options panel: Resume / Save & Exit / Controls / volume slider ---
+    // Tap/click outside the panel closes it, whether opened from gameplay or the main menu
+    if (mouse_check_button_pressed(mb_left) && !point_in_rectangle(mx, my, panelX, panelY, panelX + panelW, panelY + panelH)) {
+        playSfx(sndButtonClick);
+        closeOptionsPanel();
+        exit;
+    }
+    
     if (inGameMode) {
         resumeHovered = point_in_rectangle(mx, my, resumeX1, resumeY1, resumeX2, resumeY2);
         saveExitHovered = point_in_rectangle(mx, my, saveExitX1, saveExitY1, saveExitX2, saveExitY2);
