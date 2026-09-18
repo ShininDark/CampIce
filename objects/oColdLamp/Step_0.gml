@@ -13,7 +13,7 @@ if (!isLit) {
 // interaction (hold-based)
 var inRange = isLit && instance_exists(oPlayer) && point_distance(x, y, oPlayer.x, oPlayer.y) < interactRadius;
 
-if (inRange && keyboard_check(vk_control)) {
+if (inRange && (keyboard_check(vk_control) || global.touchInteractHeld)) {
     isHolding = true;
     holdTimer += oGlobal.dt;
     

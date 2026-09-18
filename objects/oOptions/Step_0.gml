@@ -2,9 +2,27 @@ var inventoryOpen = instance_exists(oInventory) && oInventory.invOpen;
 var shopOpen = instance_exists(oLunatic) && oLunatic.shopOpen;
 
 if (!global.optionsOpen) {
-    if (room == rMain && keyboard_check_pressed(vk_escape) && !global.gamePaused && !inventoryOpen && !shopOpen) {
+
+    var pausePressed = false;
+    
+    if (os_type == os_android || os_type == os_ios) {
+        if (variable_global_exists("touchPausePressed")) {
+            pausePressed = global.touchPausePressed;
+        }
+    } else {
+        pausePressed = keyboard_check_pressed(vk_escape);
+    }
+
+    if (
+        room == rMain &&
+        pausePressed &&
+        !global.gamePaused &&
+        !inventoryOpen &&
+        !shopOpen
+    ) {
         openOptionsPanel(true);
     }
+
     exit;
 }
 

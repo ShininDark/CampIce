@@ -1,3 +1,5 @@
+isMobile = (os_type == os_android || os_type == os_ios);
+
 // movement
 playerSpeed = 150;
 

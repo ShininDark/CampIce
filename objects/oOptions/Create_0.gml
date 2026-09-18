@@ -1,3 +1,5 @@
+isMobile = (os_type == os_android || os_type == os_ios);
+
 if (!variable_global_exists("musicVolume")) { global.musicVolume = 0.7; }
 if (!variable_global_exists("musicMuted")) { global.musicMuted = false; }
 if (!variable_global_exists("optionsOpen")) { global.optionsOpen = false; }

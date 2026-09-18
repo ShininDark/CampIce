@@ -59,6 +59,7 @@
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"oQuestArrow","path":"objects/oQuestArrow/oQuestArrow.yy",},},
     {"id":{"name":"oScenes","path":"objects/oScenes/oScenes.yy",},},
+    {"id":{"name":"oTouchControls","path":"objects/oTouchControls/oTouchControls.yy",},},
     {"id":{"name":"oTree","path":"objects/oTree/oTree.yy",},},
     {"id":{"name":"rMain","path":"rooms/rMain/rMain.yy",},},
     {"id":{"name":"rMenu","path":"rooms/rMenu/rMenu.yy",},},

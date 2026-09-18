@@ -18,3 +18,12 @@ if (!isLoading) {
     global.questUpgradesBought = 0;
     global.questUpgradesTarget = 3;
 }
+
+if (!variable_global_exists("touchMoveX")) { global.touchMoveX = 0; }
+if (!variable_global_exists("touchMoveY")) { global.touchMoveY = 0; }
+if (!variable_global_exists("touchAttackPressed")) { global.touchAttackPressed = false; }
+if (!variable_global_exists("touchInteractHeld")) { global.touchInteractHeld = false; }
+if (!variable_global_exists("touchInteractPressed")) { global.touchInteractPressed = false; }
+if (!variable_global_exists("touchInventoryPressed")) { global.touchInventoryPressed = false; }
+if (!variable_global_exists("touchAnchorPressed")) { global.touchAnchorPressed = false; }
+if (!variable_global_exists("touchPausePressed")) { global.touchPausePressed  = false; }

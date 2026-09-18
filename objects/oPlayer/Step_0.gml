@@ -33,8 +33,10 @@ if (global.gamePaused) {
 }
 
 // --- Facing ---
-var hMove = keyboard_check(ord("D")) - keyboard_check(ord("A"));
-var vMove = keyboard_check(ord("S")) - keyboard_check(ord("W"));
+var hMove = keyboard_check(ord("D")) - keyboard_check(ord("A")) + global.touchMoveX;
+var vMove = keyboard_check(ord("S")) - keyboard_check(ord("W")) + global.touchMoveY;
+hMove = clamp(hMove, -1, 1);
+vMove = clamp(vMove, -1, 1);
 
 if (hMove < 0) facingRight = false;
 else if (hMove > 0) facingRight = true;
@@ -43,7 +45,7 @@ image_xscale = facingRight ? 1 : -1;
 // --- Attack timer ---
 attackTimer += oGlobal.dt;
 
-if (mouse_check_button_pressed(mb_left) && attackTimer >= attackCooldown) {
+if ((mouse_check_button_pressed(mb_left) || global.touchAttackPressed) && attackTimer >= attackCooldown) {
     playSfx(sndSword);
     playerState = "attack";
     attackTimer = 0;
@@ -103,7 +105,13 @@ if (prevMiningTarget != noone && instance_exists(prevMiningTarget) && prevMining
 }
 
 if (nearestMineral != noone && point_distance(x, y, nearestMineral.x, nearestMineral.y) < 32) {
-    if (mouse_check_button(mb_left)) {
+    var interactHeld = mouse_check_button(mb_left);
+    
+    if (os_type == os_android || os_type == os_ios) {
+        interactHeld = global.touchInteractHeld;
+    }
+    
+    if (interactHeld) {
         nearestMineral.isMining = true;
         mineTimer += oGlobal.dt;
         
@@ -146,7 +154,13 @@ if (prevChopTarget != noone && instance_exists(prevChopTarget) && prevChopTarget
 }
 
 if (nearestTree != noone && point_distance(x, y, nearestTree.x, nearestTree.y) < 32) {
-    if (mouse_check_button(mb_left)) {
+    var interactHeld = mouse_check_button(mb_left);
+    
+    if (os_type == os_android || os_type == os_ios) {
+        interactHeld = global.touchInteractHeld;
+    }
+    
+    if (interactHeld) {
         nearestTree.isMining = true;
         chopTimer += oGlobal.dt;
         
@@ -204,7 +218,7 @@ if (variable_instance_exists(id, "anchorCooldown") && anchorCooldown > 0) {
 }
 
 // Space Press Logic
-if (keyboard_check_pressed(vk_space)) {
+if (keyboard_check_pressed(vk_space) || global.touchAnchorPressed) {
     if (!instance_exists(oAnchor)) {
         // First Press: Spawn Anchor at mouse position if off cooldown
         if (anchorCooldown <= 0) {

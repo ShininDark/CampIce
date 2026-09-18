@@ -3,7 +3,13 @@ var inRange = instance_exists(oPlayer) && point_distance(x, y, oPlayer.x, oPlaye
 var dialogueJustClosed = wasDialogueActive && !global.gamePaused;
 wasDialogueActive = global.gamePaused;
 
-if (inRange && keyboard_check_pressed(ord("E")) && !global.gamePaused && !dialogueJustClosed) {
+var interactPressed = keyboard_check_pressed(ord("E"));
+
+if (os_type == os_android || os_type == os_ios) {
+    interactPressed = global.touchInteractPressed;
+}
+
+if (inRange && interactPressed && !global.gamePaused && !dialogueJustClosed) {
     if (global.questStage == 0) {
         startDialogue([
             "Hey there, welcome to camp. You'll need to gather resources to survive out here.",
