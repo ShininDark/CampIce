@@ -103,6 +103,7 @@ if (controlsOpen) {
         if (saveExitHovered && mouse_check_button_pressed(mb_left)) {
             playSfx(sndButtonClick);
             if (SaveGameWrite()) {
+                closeOptionsPanel();
                 game_restart();
             }
         }
