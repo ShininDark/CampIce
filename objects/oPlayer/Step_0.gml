@@ -45,7 +45,13 @@ image_xscale = facingRight ? 1 : -1;
 // --- Attack timer ---
 attackTimer += oGlobal.dt;
 
-if ((mouse_check_button_pressed(mb_left) || global.touchAttackPressed) && attackTimer >= attackCooldown) {
+var attackPressed = mouse_check_button_pressed(mb_left);
+
+if (os_type == os_android || os_type == os_ios) {
+    attackPressed = global.touchAttackPressed;
+}
+
+if (attackPressed && attackTimer >= attackCooldown) {
     playSfx(sndSword);
     playerState = "attack";
     attackTimer = 0;
