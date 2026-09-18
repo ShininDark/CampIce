@@ -32,6 +32,7 @@ global.touchAttackPressed = false;
 global.touchInventoryPressed = false;
 global.touchAnchorPressed = false;
 global.touchPausePressed = false;
+global.touchInteractPressed =  false;
 
 var joyStillDown = false;
 var attackStillDown = false;
