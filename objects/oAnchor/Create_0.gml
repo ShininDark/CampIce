@@ -38,6 +38,6 @@ if (ds_list_size(tetheredEnemies) == 0) {
     exit;
 }
 
-if (audio_exists(sndMainMusic) && audio_is_playing(sndMainMusic)) {
-    audio_pause_sound(sndMainMusic);
+if (variable_global_exists("currentMusicId") && audio_is_playing(global.currentMusicId)) {
+    audio_pause_sound(global.currentMusicId);
 }
